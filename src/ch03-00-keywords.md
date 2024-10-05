@@ -6,26 +6,34 @@ algunas otras que exigen atención adicional.
 
 ## block-height
 
+`discountinuada en clarity 3, vea tenure-height`
+
 Refleja la altura de bloque actual de la cadena de bloques Stacks como un entero
 sin signo. Si imaginamos que la punta de la cadena está en la altura 5, podemos leer ese número
 en cualquier punto de nuestro código.
 
+Implementado en: `Clarity 1`
+
 ```Clarity,{"setup":["::advance_chain_tip 5"]}
-block-height
+(> block-height 1000) ;; devuelve verdadero si la altura de bloque actual ha superado los 1000 bloques.
 ```
 
 ## burn-block-height
 
 Refleja la altura de bloque actual de la cadena de bloques de quema subyacente (en este
-caso, Bitcoin) como un entero sin signo.
+caso, Bitcoin) como un entero sin signo, retorna un `uint` número entero.
+
+Implementado en: `Clarity 1`
 
 ```Clarity
-burn-block-height
+(> burn-block-height 1000) ;; devuelve verdadero si la altura actual de la cadena de bloques de quema subyacente ha superado los 1000 bloques.
 ```
 
 ## tx-sender
 
 Contiene el principal que envió la transacción. Se puede utilizar para validar el principal que está llamando a una función pública.
+
+Implementado en: `Clarity 1`
 
 ```Clarity
 tx-sender
@@ -52,10 +60,35 @@ directamente, entonces `tx-sender` y `contract-caller` serán iguales. Si el con
 llama a otro contrato a su vez, entonces `contract-caller` será igual al contrato
 anterior en la cadena.
 
+Implementado en: `Clarity 1`
+
 ```Clarity
 contract-caller
 ```
 
 En el ejemplo anterior, el contrato A no sería vulnerable a este exploit, ya que una verificación de permisos utilizando `contract-caller` daría como resultado que el contrato malicioso no pasara la verificación de permisos.
+
+## stack-block-height
+
+Refleja la altura de bloque actual de la cadena de bloques Stacks como un entero
+sin signo. Si imaginamos que la punta de la cadena está en la altura 5, podemos leer ese número
+en cualquier punto de nuestro código, retorna un `uint` número entero.
+
+Implementado en: `Clarity 3`
+
+```Clarity,{"setup":["::advance_chain_tip 5"]}
+(print stacks-block-height) ;; Imprimirá la altura actual del bloque de pilas
+```
+## tenure-height
+
+Devuelve la cantidad de periodos que han transcurrido, es igual a la longitud de la cadena, retorna un `uint` número entero.
+
+Implementado en: `Clarity 3`
+
+```Clarity,{"setup":["::advance_chain_tip 5"]}
+(print tenure-height)) ;; Imprime la altura de permanencia actual
+```
+
+`block-height` seguirá siendo compatible con los contratos Clarity 1 y Clarity 2 existentes, ya que devolverá el mismo valor que `tenure-height`. El uso de `block-height` en un contrato Clarity 3+ activará un error de análisis.
 
 No se preocupe si esto no está completamente claro ahora. Se aclarará a medida que revisemos los ejemplos en el libro.
