@@ -113,7 +113,7 @@ Una respuesta es un tipo compuesto que envuelve a otro tipo como si fuera un opc
 Sin embargo, lo que es diferente es que un tipo de respuesta incluye una indicación de
 si una acción específica fue exitosa o fallida. Las respuestas tienen efectos
 especiales cuando son devueltas por funciones públicas. Trataremos esos efectos en el
-[capítulo sobre funciones](ch04-01-public-functions.md).
+[capítulo sobre funciones](ch05-01-public-functions.md).
 
 Una respuesta toma la forma concreta de `(ok ...)` o `(err ...)`. Envolver
 un valor en una respuesta concreta es sencillo:
