@@ -1,23 +1,33 @@
-# Clarity Book
+# El Libro Sobre Clarity
 
-_Clarity of Mind_ is both an introductory as well as a reference book for the
-Clarity smart contract language. Clarity is developed as a joint effort of
-[Hiro PBC](https://hiro.so), [Algorand](http://algorand.com), and various other
-stakeholders, that originally targets the Stacks blockchain. A significant
-innovation in the field of smart contract development, Clarity allows you to
-write more safe and secure smart contracts. The language optimises for
-readability and predictability and is purpose-built for developers working
-applications with high-stakes transactions.
+_Clarity of Mind_ es tanto una introducción como un libro de referencia para el
+Clarity Smart Contract Language.La claridad se desarrolla como un esfuerzo conjunto de
+[Hiro PBC] (https://hiro.so), [Algorand] (http://algorand.com) y varios otros
+partes interesadas, que originalmente se dirige a las pilas blockchain.Un significativo
+innovación en el campo del desarrollo de contratos inteligentes, Clarity le permite
+Escriba contratos inteligentes más seguros y seguros.El lenguaje optimiza para
+legibilidad y previsibilidad y está diseñado para los desarrolladores que trabajan
+Aplicaciones con transacciones de alto riesgo.
 
-The book is free and open source, written in Markdown files. You can clone this
-repository and build a HTML version of the book. Different build scripts are
-expected to be added in the future. (PDF, ePub, and so on.)
+El libro es gratuito y de código abierto, escrito en archivos de Markdown.Puedes clonar esto
+repositorio y construir una versión HTML del libro.Diferentes scripts de compilación son
+se espera que se agregue en el futuro.(PDF, EPUB, y así sucesivamente).
 
-The book can be accessed online here: http://book.clarity-lang.org.
+Se puede acceder al libro en línea aquí: http://book.clarity-lang.org.
 
-# Building
+# Edificio
 
-- Clone this repository.
+- Clon este repositorio.
+- `NPM Install` para instalar dependencias de compilación.
+- `NPM Run Build` emitirá una versión HTML a la carpeta 'Build`.
+
+Puede usar `npm ejecutar dev` para ejecutar una instancia local que desencadena una reconstrucción cuando
+Detecta un cambio de archivo.
+
+# Licencia
+
+Creative Commons Attribution Share Tanto 4.0 International.Cualquier código tiene licencia
+bajo MIT.
 - `npm install` to install build dependencies.
 - `npm run build` will output a HTML version to the `build` folder.
 
