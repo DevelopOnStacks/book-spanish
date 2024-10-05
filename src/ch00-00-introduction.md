@@ -20,7 +20,7 @@ directamente al [capítulo sobre el uso del clarinet](ch07-00-using-clarinet.md)
 
 Se supone que tienes conocimientos básicos de programación y
 conceptos lógicos subyacentes. El primer capítulo cubre la sintaxis general de
-Claridad, pero no profundiza en lo que es la programación en sí. Si
+Clarity, pero no profundiza en lo que es la programación en sí. Si
 Esto es lo que estás buscando, entonces podrías tener un momento más difícil.
 trabajando con este libro a menos que tengas una afinidad natural (no descubierta) por
 estos temas. Pero no dejes que eso te disuada, busca una introducción
@@ -90,7 +90,7 @@ La "Organización" causó un daño financiero tan grande que la Fundación Ether
 decidió emitir un hard fork polémico que deshizo el robo. Estos y muchos otros
 Otros errores podrían haberse evitado en el diseño del propio lenguaje.
 
-### La claridad se _interpreta_, no se _compila_
+### La Clarity se _interpreta_, no se _compila_
 
 El código de Clarity se interpreta y se envía a la cadena exactamente como está escrito.
 Solidity y otros lenguajes se compilan en código de bytes antes de enviarlos a
@@ -103,11 +103,11 @@ para verificar lo que realmente hace el contrato inteligente. Pregúntese: ¿lo 
 ¿Hay alguna diferencia con los contratos inteligentes?[^2] Con Clarity, lo que ves es lo que quieres.
 conseguir.
 
-### La claridad es _decidible_
+### La Clarity es _decidible_
 
 Un lenguaje decidible tiene la propiedad de que a partir del código mismo se puede saber
 con certeza lo que hará el programa. Esto evita problemas como el
-[problema de detención](https://en.wikipedia.org/wiki/Halting_problem). Con claridad
+[problema de parada](https://es.wikipedia.org/wiki/Problema_de_la_parada). Con Clarity
 sabes con certeza que dada cualquier entrada, el programa se detendrá en un número finito
 de pasos. En términos simples: se garantiza que la ejecución del programa finalizará.
 La decidibilidad también permite un análisis estático completo del gráfico de llamadas para que
@@ -116,7 +116,7 @@ una llamada de Clarity para "quedarse sin gasolina" en medio de la llamada. Si e
 Si no está seguro de lo que esto significa, no se preocupe por ahora. La gran ventaja de
 La decidibilidad se hará más evidente con el tiempo.
 
-### La claridad no permite la _reentrada_
+### La Clarity no permite la _reentrada_
 
 La reentrada es una situación en la que un contrato inteligente llama a otro, lo que
 luego vuelve a llamar al primer contrato—la llamada "vuelve a entrar" en la misma lógica.
@@ -124,7 +124,7 @@ Puede permitir que un atacante active múltiples retiros de tokens antes de que
 El contrato ha tenido la oportunidad de actualizar su balance interno. El diseño de Clarity
 considera la reentrada como una característica anti-funcional y la prohíbe a nivel del lenguaje.
 
-### La claridad protege contra los _desbordamientos_ y los _desbordamientos insuficientes_
+### La Clarity protege contra los _desbordamientos_ y los _desbordamientos insuficientes_
 
 Los desbordamientos y subdesbordamientos ocurren cuando un cálculo da como resultado un número que es
 ya sea demasiado grande o demasiado pequeño para ser almacenado, respectivamente. Estos eventos arrojan
