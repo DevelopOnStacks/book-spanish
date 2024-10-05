@@ -66,10 +66,12 @@ personas! Los comentarios tienen como prefijo un doble punto y coma (`;;`) y pue
 ;; (+ 4 5)
 ```
 
-Recuerde que los contratos Clarity se comprometen con la cadena tal como están. Comentarios
-Por lo tanto, aumenta el tamaño del contrato y cualquier elemento _creativo_ que incluyas
+Recuerde que los contratos Clarity se [consolidan](https://es.wikipedia.org/wiki/Commit) a la cadena tal como están. Por lo tanto, los comentarios
+aumenta el tamaño del contrato y cualquier elemento _creativo_ que incluyas
 será visible para cualquier persona que inspeccione el código.
 
 ```Clarity
-{"expected_output": "15", "hint": "Convierte el siguiente cálculo en código Clarity:\n(5 * 4) - 5"}
+;; {"expected_output": "15", "hint": "Convierte el siguiente cálculo en código Clarity:\n(5 * 4) - 5"}
+
+(- (* 5 4) 5)
 ```
