@@ -16,7 +16,7 @@ Los conceptos se introducen gradualmente a un ritmo lógico y constante. No obst
 Los capítulos se prestan bastante bien a ser leídos en un orden diferente. Más
 Los desarrolladores experimentados pueden obtener el mayor beneficio saltando directamente a los capítulos
 que más les interesen. **Si te gusta aprender con el ejemplo, entonces deberías ir
-directamente al [capítulo sobre el uso del clarinete](ch07-00-using-clarinet.md).**
+directamente al [capítulo sobre el uso del clarinet](ch07-00-using-clarinet.md).**
 
 Se supone que tienes conocimientos básicos de programación y
 conceptos lógicos subyacentes. El primer capítulo cubre la sintaxis general de
