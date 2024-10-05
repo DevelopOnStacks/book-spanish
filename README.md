@@ -1,11 +1,11 @@
 # El libro de Clarity
 
 _Clarity of Mind_ es tanto una introducción como un libro de referencia para el
-Clarity Smart Contract Language.La claridad se desarrolla como un esfuerzo conjunto de
+Lenguaje de Contratos Inteligente llamado Clarity. La clarity se desarrolla como un esfuerzo conjunto de
 [Hiro PBC] (https://hiro.so), [Algorand] (http://algorand.com) y varios otros
 partes interesadas, que originalmente se dirige a las pilas blockchain.Un significativo
 innovación en el campo del desarrollo de contratos inteligentes, Clarity le permite
-Escriba contratos inteligentes más seguros y seguros.El lenguaje optimiza para
+Escriba contratos inteligentes más seguros y seguros. El lenguaje optimiza para
 legibilidad y previsibilidad y está diseñado para los desarrolladores que trabajan
 Aplicaciones con transacciones de alto riesgo.
 
