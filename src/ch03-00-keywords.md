@@ -43,7 +43,7 @@ Tenga en cuenta que es posible que `tx-sender` sea un principal de contrato si s
 función especial `as-contract` para cambiar el contexto de envío.
 
 ```Clarity
-(as-contract tx-sender)
+(print tx-sender) ;; Imprimirá una dirección de Stacks del remitente de la transacción
 ```
 
 Tenga en cuenta que el uso de `tx-sender` como verificación de permiso para llamar a un contrato puede exponerlo a una vulnerabilidad en la que un contrato malicioso podría engañar a un usuario para que lo llame en lugar del contrato previsto, pero la verificación de `tx-sender` pasaría, ya que devuelve el llamador del contrato original.
@@ -63,7 +63,7 @@ anterior en la cadena.
 Implementado en: `Clarity 1`
 
 ```Clarity
-contract-caller
+(print contract-caller) ;; Imprimirá una dirección de Stacks del remitente de la transacción
 ```
 
 En el ejemplo anterior, el contrato A no sería vulnerable a este exploit, ya que una verificación de permisos utilizando `contract-caller` daría como resultado que el contrato malicioso no pasara la verificación de permisos.
@@ -86,7 +86,7 @@ Devuelve la cantidad de periodos que han transcurrido, es igual a la longitud de
 Implementado en: `Clarity 3`
 
 ```Clarity,{"setup":["::advance_chain_tip 5"]}
-(print tenure-height)) ;; Imprime la altura de permanencia actual
+(print tenure-height)) ;; Imprime la altura de perido actual
 ```
 
 `block-height` seguirá siendo compatible con los contratos Clarity 1 y Clarity 2 existentes, ya que devolverá el mismo valor que `tenure-height`. El uso de `block-height` en un contrato Clarity 3+ activará un error de análisis.
