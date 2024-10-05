@@ -65,4 +65,29 @@ el nivel superior de una definición de contrato inteligente; es decir, no puede
 definición en el medio del cuerpo de una función.
 
 Recuerde que se pueden usar espacios en blanco para hacer que su código sea más legible. Si está
-definiendo un tipo de tupla complicado, simplemente s
+definiendo un tipo de tupla complicado, simplemente espacielo:
+
+```Clarity
+(define-data-var high-score
+;; Definición del tipo de tupla:
+{
+score: uint,
+who: (principal opcional),
+at-height: uint
+}
+;; Valor de la tupla:
+{
+score: u0,
+who: none,
+at-height: u0
+}
+)
+;; Imprimir el valor inicial.
+(print (var-get high-score))
+;; Cambiar el valor.
+(var-set high-score
+{score: u10, who: (some tx-sender), at-height: block-height}
+)
+;; Imprimir el nuevo valor.
+(print (var-get high-score))
+```
