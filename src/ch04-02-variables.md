@@ -69,25 +69,30 @@ definiendo un tipo de tupla complicado, simplemente espacielo:
 
 ```Clarity
 (define-data-var high-score
-;; Definición del tipo de tupla:
-{
-score: uint,
-who: (principal opcional),
-at-height: uint
-}
-;; Valor de la tupla:
-{
-score: u0,
-who: none,
-at-height: u0
-}
+  ;; Definición del tipo de tupla:
+  {
+    score: uint,
+    who: (principal opcional),
+    at-height: uint
+  }
+  ;; Valor de la tupla:
+  {
+    score: u0,
+    who: none,
+    at-height: u0
+  }
 )
 ;; Imprimir el valor inicial.
-(print (var-get high-score))
+
+  (print (var-get high-score))
+
 ;; Cambiar el valor.
+
 (var-set high-score
-{score: u10, who: (some tx-sender), at-height: block-height}
+  {score: u10, who: (some tx-sender), at-height: block-height}
 )
+
 ;; Imprimir el nuevo valor.
+
 (print (var-get high-score))
 ```
