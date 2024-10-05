@@ -6,7 +6,7 @@ intimidadas, ya que parece muy extraño en comparación con los lenguajes natura
 
 Una forma de conceptualizar el código Clarity es pensar en listas dentro de listas. (El
 término técnico para este tipo de expresiones es
-"[S-expression](https://en.wikipedia.org/wiki/S-expression)".) Las expresiones
+"[S-expression](https://es.wikipedia.org/wiki/Expresi%C3%B3n_S)".) Las expresiones
 no diferencian entre datos y código, ¡lo que hace las cosas un poco más fáciles! Aquí hay
 un ejemplo de una expresión Clarity (pista: haga clic en el botón _reproducir_ o cópielo y péguelo en el REPL):
 
@@ -15,7 +15,7 @@ un ejemplo de una expresión Clarity (pista: haga clic en el botón _reproducir_
 ```
 
 ¿Adivinó correctamente a qué se evalúa la expresión? Aunque pueda parecer un poco extraño para aquellos que no están acostumbrados a la
-_[notación polaca](https://en.wikipedia.org/wiki/Polish_notation)_ en matemáticas, es
+_[notación polaca](https://es.wikipedia.org/wiki/Notaci%C3%B3n_polaca)_ en matemáticas, es
 fácil hacer una suposición razonable. El símbolo `+` define una operación (en
 este caso, la suma), y el `4` y el `5` son entradas. El resultado final: `9`.
 
