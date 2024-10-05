@@ -1,198 +1,198 @@
-# Introduction
+ # Introducción
 
-_Clarity of Mind_ is both an introductory as well as a reference book for the
-Clarity smart contract language. Clarity is developed as a joint effort of
-[Hiro PBC](https://hiro.so), [Algorand](http://algorand.com), and various other
-stakeholders, that originally targets the Stacks blockchain. A significant
-innovation in the field of smart contract development, Clarity allows you to
-write more safe and secure smart contracts. The language optimises for
-readability and predictability and is purpose-built for developers working
-applications with high-stakes transactions.
+_Claridad mental_ es a la vez un libro introductorio y de referencia para el
+Lenguaje de contratos inteligentes Clarity. Clarity se desarrolló como un esfuerzo conjunto de
+[Hiro PBC](https://hiro.so), [Algorand](http://algorand.com) y varios otros
+partes interesadas, que originalmente apunta a la cadena de bloques Stacks. Un significativo
+innovación en el campo del desarrollo de contratos inteligentes, Clarity le permite
+Redacte contratos inteligentes más seguros y protegidos. El lenguaje está optimizado para
+legibilidad y previsibilidad y está diseñado específicamente para desarrolladores que trabajan
+aplicaciones con transacciones de alto riesgo.
 
-## Target audience
+## Público objetivo
 
-This book is accessible for both beginners and experienced developers alike.
-Concepts are gradually introduced in a logical and steady pace. Nonetheless, the
-chapters lend themselves rather well to being read in a different order. More
-experienced developers might get the most benefit by jumping to the chapters
-that interest them most. **If you like to learn by example, then you should go
-straight to the [chapter on Using Clarinet](ch07-00-using-clarinet.md).**
+Este libro es accesible tanto para principiantes como para desarrolladores experimentados.
+Los conceptos se introducen gradualmente a un ritmo lógico y constante. No obstante,
+Los capítulos se prestan bastante bien a ser leídos en un orden diferente. Más
+Los desarrolladores experimentados pueden obtener el mayor beneficio saltando directamente a los capítulos
+que más les interesen. **Si te gusta aprender con el ejemplo, entonces deberías ir
+directamente al [capítulo sobre el uso del clarinete](ch07-00-using-clarinet.md).**
 
-It is assumed that you have a basic understanding of programming and the
-underlying logical concepts. The first chapter covers the general syntax of
-Clarity but it does not delve into what programming _itself_ is all about. If
-this is what you are looking for, then you might have a more difficult time
-working through this book unless you have an (undiscovered) natural affinity for
-such topics. Do not let that dissuade you though, find an introductory
-programming book and press on! The straightforward design of Clarity makes it a
-great first language to pick up.
+Se supone que tienes conocimientos básicos de programación y
+conceptos lógicos subyacentes. El primer capítulo cubre la sintaxis general de
+Claridad, pero no profundiza en lo que es la programación en sí. Si
+Esto es lo que estás buscando, entonces podrías tener un momento más difícil.
+trabajando con este libro a menos que tengas una afinidad natural (no descubierta) por
+estos temas. Pero no dejes que eso te disuada, busca una introducción
+¡Libro de programación y sigue adelante! El diseño sencillo de Clarity lo convierte en un
+Excelente primer idioma para aprender.
 
-## What are smart contracts & blockchains?
+## ¿Qué son los contratos inteligentes y las cadenas de bloques?
 
-Clarity is a language for writing _smart contracts_ that run on a _blockchain_.
-Before we can discuss the what smart contracts are, we must understand what a
-blockchain is. There is a wealth of information available on the topic, as well
-as what different kinds of blockchains exist. We will therefore only briefly
-touch upon the concept in a more generalised sense. A blockchain can be thought
-of as a special kind of _immutable distributed database_:
+Clarity es un lenguaje para escribir _contratos inteligentes_ que se ejecutan en una _blockchain_.
+Antes de poder analizar qué son los contratos inteligentes, debemos entender qué es un contrato inteligente.
+blockchain es. Hay una gran cantidad de información disponible sobre el tema, así como
+como los diferentes tipos de cadenas de bloques que existen. Por lo tanto, solo hablaremos brevemente
+Tocar el concepto en un sentido más general. Se puede pensar en una cadena de bloques
+como un tipo especial de _base de datos distribuida inmutable_:
 
-- It is _distributed_ in the sense that all participants can get a complete copy
-  of the database. Once you install a Bitcoin node, for example, it will start
-  downloading the entire blockchain from the network. There is no single party
-  that hosts or manages the entire blockchain on behalf of the users. Everyone
-  that plays by the rules can participate in the network.
+- Se _distribuye_ en el sentido de que todos los participantes pueden obtener una copia completa
+  de la base de datos. Una vez que instale un nodo de Bitcoin, por ejemplo, comenzará
+  descargando toda la cadena de bloques de la red. No hay una sola parte
+  que aloja o administra toda la cadena de bloques en nombre de los usuarios. Todos
+  que juega según las reglas puede participar en la red.
 
-- _Immutability_ comes from the fact that once information is added, it cannot
-  (feasibly[^1]) be changed. The network rules prevent any one actor from making
-  changes to data that has already been inserted. Blockchains are unique in that
-  they leverage cryptography to ensure that all participants reach a consensus
-  on the true state of the data. It allows the network to function without the
-  need of trusting a central authority and it is why it is referred to as a
-  "trustless system". It is where the "crypto" in "cryptocurrency" comes from.
+- La _inmutabilidad_ proviene del hecho de que una vez que se agrega información, no puede
+  (posiblemente[^1]) se puede cambiar. Las reglas de la red impiden que cualquier actor haga
+  cambios en los datos que ya se han insertado. Las cadenas de bloques son únicas en el sentido de que
+  Aprovechan la criptografía para garantizar que todos los participantes lleguen a un consenso.
+  sobre el estado real de los datos. Permite que la red funcione sin la
+  necesidad de confiar en una autoridad central y es por eso que se le conoce como
+  "sistema sin confianza". De ahí viene el término "cripto" en "criptomoneda".
 
-The blockchain is therefore a kind of secure and resilient public record.
-Changes are made by submitting a properly formatted and digitally signed
-_transaction_ onto the network. The different nodes in the network collect these
-transactions, assess their validity, and will then include them in the next
-block based on some conditions. For most blockchains, the nodes that create
-blocks are reimbursed by the transaction senders. Transactions come attached
-with a small fee that the node can claim when it includes the transaction in a
-block.
+La cadena de bloques es, por tanto, una especie de registro público seguro y resistente.
+Los cambios se realizan enviando un documento debidamente formateado y firmado digitalmente.
+_transacción_ en la red. Los diferentes nodos de la red recopilan estas
+transacciones, evaluará su validez y luego las incluirá en la siguiente
+bloque basado en algunas condiciones. Para la mayoría de las cadenas de bloques, los nodos que crean
+Los bloques son reembolsados ​​por los remitentes de las transacciones. Las transacciones vienen adjuntas
+con una pequeña tarifa que el nodo puede reclamar cuando incluye la transacción en un
+bloquear.
 
-Smart contracts are programs that run on top of blockchains and can utilise
-their unique properties. Effectively, it means that you can build an application
-that does not run on a single system but is instead executed and verified across
-a distributed network. The same nodes that process transactions will execute the
-smart contract code and include the result in the next block. Users can _deploy_
-smart contracts—the act of adding a new one to the chain—and call into existing
-ones by sending a transaction. Because executing some code is more resource
-intensive, the transaction fee will go up depending on the complexity of the
-code.
+Los contratos inteligentes son programas que se ejecutan sobre cadenas de bloques y pueden utilizar
+sus propiedades únicas. En efecto, significa que puedes crear una aplicación
+que no se ejecuta en un solo sistema, sino que se ejecuta y verifica en todos ellos.
+una red distribuida. Los mismos nodos que procesan transacciones ejecutarán las
+Código de contrato inteligente e incluir el resultado en el siguiente bloque. Los usuarios pueden _implementar_
+Contratos inteligentes: el acto de agregar uno nuevo a la cadena y llamar a los existentes.
+Unos enviando una transacción. Porque ejecutar algún código consume más recursos.
+intensivo, la tarifa de transacción aumentará dependiendo de la complejidad de la
+código.
 
-## What makes Clarity different
+## ¿Qué hace que Clarity sea diferente?
 
-The number of smart contract languages grows by the year. Choosing a first
-language can be challenging, especially for a beginner. The choice is largely
-dictated by the ecosystem you are interested in, although some languages are
-applicable to more than just one platform. Each language has its own upsides and
-downsides and it is out of the scope of this book to look at all of them.
-Instead, we will focus on what sets Clarity apart and why it is a prime choice
-if you require the utmost security and transparency.
+El número de lenguajes de contratos inteligentes crece año tras año. Elegir un primer
+El lenguaje puede ser un desafío, especialmente para un principiante. La elección es en gran medida
+dictado por el ecosistema que le interesa, aunque algunos idiomas son
+Aplicable a más de una plataforma. Cada lenguaje tiene sus ventajas y desventajas.
+desventajas y está fuera del alcance de este libro analizarlas todas.
+En cambio, nos centraremos en lo que distingue a Clarity y por qué es una excelente opción.
+Si requiere la máxima seguridad y transparencia.
 
-One of the core precepts of Clarity is that it is secure by design. The design
-process was guided by examining common pitfalls, mistakes, and vulnerabilities
-in the field of smart contract engineering as a whole. There are countless real
-world examples of where developer failure led to the loss or theft of vast
-amounts of tokens. To name two big ones: an issue that has become known as the
-_Parity bug_ led to the irreparable loss of millions of dollars worth of
-Ethereum. Second, the hacking of The DAO (a _"Decentralised Autonomous
-Organisation"_) caused financial damage so great that the Ethereum Foundation
-decided to issue a contentious hard fork that undid the theft. These and many
-other mistakes could have been prevented in the design of the language itself.
+Uno de los preceptos fundamentales de Clarity es que es seguro por diseño. El diseño
+El proceso se guió mediante el examen de errores, trampas y vulnerabilidades comunes.
+en el campo de la ingeniería de contratos inteligentes en su conjunto. Hay innumerables contratos reales
+Ejemplos mundiales de casos en los que el fracaso de un desarrollador provocó la pérdida o el robo de grandes cantidades de dinero.
+cantidades de tokens. Por nombrar dos grandes: un problema que se ha dado a conocer como el
+_Un error de paridad_ provocó la pérdida irreparable de millones de dólares en
+Ethereum. En segundo lugar, el hackeo de The DAO (una "criptomoneda autónoma descentralizada")
+La "Organización" causó un daño financiero tan grande que la Fundación Ethereum
+decidió emitir un hard fork polémico que deshizo el robo. Estos y muchos otros
+Otros errores podrían haberse evitado en el diseño del propio lenguaje.
 
-### Clarity is _interpreted_, not _compiled_
+### La claridad se _interpreta_, no se _compila_
 
-Clarity code is interpreted and committed to the chain exactly as written.
-Solidity and other languages are compiled to byte-code before it is submitted to
-the chain. The danger of compiled smart contract languages is two-fold: first, a
-compiler adds a layer of complexity. A bug in the compiler may lead to different
-byte-code than was intended and thus carries the risk of introducing a
-vulnerability. Second, byte-code is not human-readable, which makes it very hard
-to verify what the smart contract is actually doing. Ask yourself, _would you
-sign a contract you cannot read?_ If your answer is no, then why should it be
-any different for smart contracts?[^2] With Clarity, what you see is what you
-get.
+El código de Clarity se interpreta y se envía a la cadena exactamente como está escrito.
+Solidity y otros lenguajes se compilan en código de bytes antes de enviarlos a
+La cadena. El peligro de los lenguajes de contratos inteligentes compilados es doble: primero, un
+El compilador añade una capa de complejidad. Un error en el compilador puede dar lugar a diferentes
+código de bytes del que se pretendía y, por lo tanto, conlleva el riesgo de introducir un
+vulnerabilidad. En segundo lugar, el código de bytes no es legible para humanos, lo que lo hace muy difícil.
+para verificar lo que realmente hace el contrato inteligente. Pregúntese: ¿lo haría?
+¿Firmas un contrato que no puedes leer? Si tu respuesta es no, entonces ¿por qué debería serlo?
+¿Hay alguna diferencia con los contratos inteligentes?[^2] Con Clarity, lo que ves es lo que quieres.
+conseguir.
 
-### Clarity is _decidable_
+### La claridad es _decidible_
 
-A decidable language has the property that from the code itself, you can know
-with certainty what the program will do. This avoids issues like the
-[halting problem](https://en.wikipedia.org/wiki/Halting_problem). With Clarity
-you know for sure that given any input, the program will halt in a finite number
-of steps. In simple terms: it is guaranteed that program execution will end.
-Decidability also allows for complete static analysis of the call graph so you
-get an accurate picture of the exact cost before execution. There is no way for
-a Clarity call to _"run out of gas"_ in the middle of the call. If you are
-unsure what this means, let it not worry you for now. The serious advantage of
-decidability will become more apparent over time.
+Un lenguaje decidible tiene la propiedad de que a partir del código mismo se puede saber
+con certeza lo que hará el programa. Esto evita problemas como el
+[problema de detención](https://en.wikipedia.org/wiki/Halting_problem). Con claridad
+sabes con certeza que dada cualquier entrada, el programa se detendrá en un número finito
+de pasos. En términos simples: se garantiza que la ejecución del programa finalizará.
+La decidibilidad también permite un análisis estático completo del gráfico de llamadas para que
+Obtenga una idea precisa del costo exacto antes de la ejecución. No hay forma de que
+una llamada de Clarity para "quedarse sin gasolina" en medio de la llamada. Si estás
+Si no está seguro de lo que esto significa, no se preocupe por ahora. La gran ventaja de
+La decidibilidad se hará más evidente con el tiempo.
 
-### Clarity does not permit _reentrancy_
+### La claridad no permite la _reentrada_
 
-Reentrancy is a situation where one smart contract calls into another, which
-then calls back into the first contract—the call _"re-enters"_ the same logic.
-It may allow an attacker to trigger multiple token withdrawals before the
-contract has had a chance to update its internal balance sheet. Clarity's design
-considers reentrancy an anti-feature and disallows it on the language level.
+La reentrada es una situación en la que un contrato inteligente llama a otro, lo que
+luego vuelve a llamar al primer contrato—la llamada "vuelve a entrar" en la misma lógica.
+Puede permitir que un atacante active múltiples retiros de tokens antes de que
+El contrato ha tenido la oportunidad de actualizar su balance interno. El diseño de Clarity
+considera la reentrada como una característica anti-funcional y la prohíbe a nivel del lenguaje.
 
-### Clarity guards against _overflow_ and _underflows_
+### La claridad protege contra los _desbordamientos_ y los _desbordamientos insuficientes_
 
-Overflows and underflows happen when a calculation results in a number that is
-either too large or too small to be stored, respectively. These events throw
-smart contracts into disarray and may intentionally be triggered in poorly
-written contracts by attackers. Usually this leads to a situation where the
-contract is either frozen or drained of tokens. Overflows and underflows of any
-kind automatically cause a transaction to be aborted in Clarity.
+Los desbordamientos y subdesbordamientos ocurren cuando un cálculo da como resultado un número que es
+ya sea demasiado grande o demasiado pequeño para ser almacenado, respectivamente. Estos eventos arrojan
+Los contratos inteligentes pueden desordenarse y activarse intencionalmente en situaciones de mala calidad.
+contratos escritos por los atacantes. Por lo general, esto conduce a una situación en la que el
+El contrato está congelado o se le han agotado los tokens. Los desbordamientos y subdesbordamientos de cualquier
+El tipo provoca automáticamente que se cancele una transacción en Clarity.
 
-### Support for custom tokens is built-in
+### El soporte para tokens personalizados está integrado
 
-Issuance of custom fungible and non-fungible tokens is a popular use-case for
-smart contracts. Custom token features are built into the Clarity language.
-Developers do not need to worry about creating an internal balance sheet,
-managing supply, and emitting token events. Creating custom tokens is covered in
-depth in later chapters.
+La emisión de tokens fungibles y no fungibles personalizados es un caso de uso popular para
+Contratos inteligentes. Las funciones de token personalizadas están integradas en el lenguaje Clarity.
+Los desarrolladores no necesitan preocuparse por crear un balance interno,
+gestión de suministro y emisión de eventos de tokens. La creación de tokens personalizados se explica en
+Profundizaremos en capítulos posteriores.
 
-### On Stacks, transactions are secured by _post conditions_
+### En Stacks, las transacciones están protegidas por _condiciones posteriores_
 
-In order to further safeguard user tokens, post conditions can be attached to
-transactions to assert the chain state has changed in a certain way once the
-transaction has completed. For example, a user calling into a smart contract may
-attach a post condition that states that after the call completes, exactly 500
-STX should have been transferred from one address to another. If the post
-condition check fails, then the entire transaction is reverted. Since custom
-token support is built right into Clarity, post conditions can also be used to
-guard any other token in the same way.
+Para proteger aún más los tokens de los usuarios, se pueden adjuntar condiciones posteriores a
+transacciones para afirmar que el estado de la cadena ha cambiado de cierta manera una vez que
+La transacción se ha completado. Por ejemplo, un usuario que llama a un contrato inteligente puede
+Adjunte una condición posterior que indique que después de que se complete la llamada, exactamente 500
+El STX debería haberse transferido de una dirección a otra. Si el correo
+Si la verificación de condición falla, se revierte toda la transacción. Dado que la costumbre
+El soporte de token está integrado en Clarity, las condiciones posteriores también se pueden usar para
+proteja cualquier otra ficha de la misma manera.
 
-### Returned responses cannot be left unchecked
+### Las respuestas devueltas no se pueden dejar sin marcar
 
-Public contract calls must return a so-called _response_ that indicates success
-or failure. Any contract that calls another contract is required to properly
-handle the response. Clarity contracts that fail to do so are invalid and cannot
-be deployed on the network. Other languages like Solidity permit the use of low
-level calls without requiring the return value to be checked. For example, a
-token transfer can fail silently if the developer forgets to check the result.
-In Clarity it is not possible to ignore errors, although that obviously does
-prevent buggy error handling on behalf of the developer. Responses and error
-handling are covered extensively in the chapters on
-[functions](ch05-00-functions.md) and [control flow](ch06-00-control-flow.md).
+Las llamadas a contratos públicos deben devolver una llamada _respuesta_ que indica el éxito
+o fracaso. Cualquier contrato que llame a otro contrato debe cumplirse debidamente.
+Manejar la respuesta. Los contratos de Clarity que no lo hagan no serán válidos y no podrán
+se pueden implementar en la red. Otros lenguajes como Solidity permiten el uso de bajo
+llamadas de nivel sin necesidad de comprobar el valor de retorno. Por ejemplo, una
+La transferencia de token puede fallar silenciosamente si el desarrollador olvida verificar el resultado.
+En Clarity no es posible ignorar los errores, aunque eso obviamente no sucede.
+evitar la gestión de errores por parte del desarrollador. Respuestas y errores
+El manejo de los mismos se cubre extensamente en los capítulos sobre
+[funciones](ch05-00-functions.md) y [flujo de control](ch06-00-control-flow.md).
 
-### Composition over inheritance
+### Composición sobre herencia
 
-Clarity adopts a composition over inheritance. It means that Clarity smart
-contracts do not inherit from one another like you see in languages like
-Solidity. Developers instead define traits which are then implemented by
-different smart contracts. It allows contracts to conform to different
-interfaces with greater flexibility. There is no need to worry about complex
-class trees and contracts with implicit inherited behaviour.
+Clarity adopta una composición en lugar de una herencia. Esto significa que Clarity es inteligente.
+Los contratos no se heredan unos de otros como se ve en lenguajes como
+Solidez. Los desarrolladores, en cambio, definen características que luego son implementadas por
+diferentes contratos inteligentes. Permite que los contratos se ajusten a diferentes
+interfaces con mayor flexibilidad. No hay necesidad de preocuparse por problemas complejos.
+árboles de clases y contratos con comportamiento heredado implícito.
 
-### Access to the base chain: Bitcoin
+### Acceso a la cadena base: Bitcoin
 
-Clarity smart contracts can read the state of the Bitcoin base chain. It means
-you can use Bitcoin transactions as a trigger in your smart contracts! Clarity
-also features a number of built-in functions to verify secp256k1 signatures and
-recover keys.
+Los contratos inteligentes de Clarity pueden leer el estado de la cadena base de Bitcoin. Esto significa
+¡Puedes usar las transacciones de Bitcoin como un disparador en tus contratos inteligentes! Clarity
+También cuenta con una serie de funciones integradas para verificar las firmas secp256k1 y
+recuperar claves.
 
-[^1]: The note on feasibility was added for correctness. Blockchains are
-designed to be highly resistant to change but there have been cases of rewrites.
-Weaker chains can be susceptible to so-called "51% attacks" that allow a
-powerful miner to rewrite that chain's history. On the other hand, influential
-factions may mandate a node upgrade that changes chain history by means of a
-hard fork. For example, the Ethereum Foundation "solved" the problem of the DAO
-hack with a hard fork.
+[^1]: Se agregó la nota sobre viabilidad para que sea más correcta. Las cadenas de bloques son
+Diseñado para ser altamente resistente al cambio, pero ha habido casos de reescritura.
+Las cadenas más débiles pueden ser susceptibles a los llamados "ataques del 51%" que permiten una
+poderoso minero para reescribir la historia de esa cadena. Por otro lado, el influyente
+Las facciones pueden exigir una actualización de nodo que cambie el historial de la cadena por medio de un
+hard fork. Por ejemplo, la Fundación Ethereum "resolvió" el problema de la DAO
+hackear con un hard fork.
 
-[^2]: Although this characteristic makes it a lot easier to read Clarity smart
-contracts, it does not necessarily make it easy. A good grasp of Clarity is
-still required, but one can argue that it is still a lot better than a
-conventional paper contract written in legalese, which quite honestly can be
-considered a language in its own right. The actual difference is that Clarity
-permits only one interpretation, something that definitely cannot be said for
-legalese.
+[^2]: Aunque esta característica hace que sea mucho más fácil de leer Clarity smart
+contratos, no necesariamente lo hace fácil. Un buen dominio de Clarity es
+Todavía es necesario, pero se puede argumentar que es mucho mejor que un
+contrato convencional en papel escrito en lenguaje legal, que honestamente puede ser
+considerado un lenguaje por derecho propio. La diferencia real es que Clarity
+Sólo permite una interpretación, algo que definitivamente no se puede decir de
+jerga legal.
