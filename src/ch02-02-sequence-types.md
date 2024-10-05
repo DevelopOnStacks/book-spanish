@@ -1,141 +1,138 @@
-## Sequences
+## Secuencias
 
-Sequences hold a sequence of data, as the name implies. Clarity provides three
-different kinds of sequences: _buffers_, _strings_, and _lists_.
+Las secuencias contienen una secuencia de datos, como su nombre lo indica. Clarity ofrece tres
+tipos diferentes de secuencias: _buffers_, _strings_ y _lists_.
 
 ### Buffers
 
-Buffers are unstructured data of a fixed maximum length. They always start with
-the prefix `0x` followed by a
-[hexadecimal](https://en.wikipedia.org/wiki/Hexadecimal) string. Each byte is
-thus represented by two so-called
+Los buffers son datos no estructurados de una longitud máxima fija. Siempre comienzan con
+el prefijo `0x` seguido de una cadena
+[hexadecimal](https://es.wikipedia.org/wiki/Sistema_hexadecimal). Cada byte se representa
+por dos de los llamados
 [hexits](https://en.wiktionary.org/wiki/hexit).
 
 ```Clarity
-0x68656c6c6f21
+0xa1686f6c6121
 ```
 
-The buffer above spells out _"hello!"_. (Copy and paste it to
-[this page](https://coding.tools/hex-to-ascii) to verify.)
+El buffer anterior deletrea _"¡hola!"_. (Cópielo y péguelo en
+[esta página](https://coding.tools/hex-to-ascii) para verificarlo).
 
-### Strings
+### Cadenas
 
-A string is a sequence of characters. These can be defined as
-[ASCII](https://en.wikipedia.org/wiki/ASCII) strings or
-[UTF-8](https://en.wikipedia.org/wiki/UTF-8) strings. ASCII strings may only
-contain basic Latin characters whilst UTF-8 strings can contain fun stuff like
-emoji. Both strings are enclosed in double-quotes (`"`) but UTF-8 strings are
-also prefixed by a `u`. Just like buffers, strings always have a fixed maximum
-length in Clarity.
+Una cadena es una secuencia de caracteres. Estos pueden definirse como
+cadenas [ASCII](https://es.wikipedia.org/wiki/ASCII) o
+cadenas [UTF-8](https://es.wikipedia.org/wiki/UTF-8). Las cadenas ASCII solo pueden
+contener caracteres latinos básicos, mientras que las cadenas UTF-8 pueden contener elementos divertidos como
+emojis. Ambas cadenas están entre comillas dobles (`"`) pero las cadenas UTF-8
+también tienen como prefijo una `u`. Al igual que los buffers, las cadenas siempre tienen una longitud máxima fija en Clarity.
 
 ASCII:
 
 ```Clarity
-"This is an ASCII string"
+"Esta es una cadena ASCII"
 ```
 
 UTF-8:
 
 ```Clarity
-u"And this is an UTF-8 string \u{1f601}"
+u"Y esta es una cadena UTF-8 \u{1f601}"
 ```
 
-You can use strings to pass names and messages.
+Puede usar cadenas para pasar nombres y mensajes.
 
-### Lists
+### Listas
 
-Lists are sequences of fixed length that contain another type. Since types
-cannot mix, a list can only contain items of the same type. Take this list of
-_signed integers_ for example:
+Las listas son secuencias de longitud fija que contienen otro tipo. Como los tipos
+no se pueden mezclar, una lista solo puede contener elementos del mismo tipo. Tome esta lista de
+_enteros con signo_ como ejemplo:
 
 ```Clarity
 (list 4 8 15 16 23 42)
 ```
 
-As you can see, a list is constructed using the `list` function. Here is a list
-of ASCII strings:
+Como puede ver, una lista se construye utilizando la función `list`. Aquí hay una lista
+de cadenas ASCII:
 
 ```Clarity
-(list "Hello" "World" "!")
+(list "Hola" "Mundo" "!")
 ```
 
-And just for completeness, here is a list that is invalid due to mixed types:
+Y solo para completar, aquí hay una lista que no es válida debido a tipos mixtos:
 
 ```Clarity
-(list u5 10 "hello") ;; This list is invalid.
+(list u5 10 "hola") ;; Esta lista no es válida.
 ```
 
-Lists are very useful and make it a lot easier to perform actions in bulk. (For
-example, sending some tokens to a list of people.) You can _iterate_ over a list
-using the `map` or `fold` functions.
+Las listas son muy útiles y hacen que sea mucho más fácil realizar acciones en masa. (Por
+ejemplo, enviar algunos tokens a una lista de personas). Puede _iterar_ sobre una lista
+usando las funciones `map` o `fold`.
 
-`map` applies an input function to each element and returns a new list with the
-updated values. The `not` function inverts a boolean (`true` becomes `false` and
-`false` becomes `true`). We can thus invert a list of booleans like this:
+`map` aplica una función de entrada a cada elemento y devuelve una nueva lista con los
+valores actualizados. La función `not` invierte un booleano (`true` se convierte en `false` y
+`false` se convierte en `true`). Podemos invertir una lista de booleanos de esta manera:
 
 ```Clarity
 (map not (list true true false false))
 ```
 
-`fold` applies an input function to each element of the list _and_ the output
-value of the previous application. It also takes an initial value to use for the
-second input for the first element. The returned result is the last value
-returned by the final application. This function is also commonly called
-_reduce_, because it reduces a list to a single value. We can use `fold` to sum
-numbers in a list by applying the `+` (addition) function with an initial value
-of `u0`:
+`fold` aplica una función de entrada a cada elemento de la lista _y_ al valor de salida
+de la aplicación anterior. También toma un valor inicial para usar como segunda entrada para el primer elemento. El resultado devuelto es el último valor
+devuelto por la aplicación final. Esta función también se denomina comúnmente
+_reduce_, porque reduce una lista a un solo valor. Podemos usar `fold` para sumar
+números en una lista aplicando la función `+` (suma) con un valor inicial
+de `u0`:
 
 ```Clarity
 (fold + (list u1 u2 u3) u0)
 ```
 
-The snippet above can be expanded to the following:
+El fragmento anterior se puede ampliar a lo siguiente:
 
 ```Clarity
 (+ u3 (+ u2 (+ u1 u0)))
 ```
 
-### Working with sequences
+### Trabajar con secuencias
 
-#### Length
+#### Longitud
 
-Sequences always have a specific length, which we can retrieve using the `len`
-function.
+Las secuencias siempre tienen una longitud específica, que podemos recuperar usando la función `len`.
 
-A buffer (remember that each byte is represented as two hexits):
-
-```Clarity
-(len 0x68656c6c6f21)
-```
-
-A string:
+Un buffer (recuerde que cada byte se representa como dos hexágonos):
 
 ```Clarity
-(len "How long is this string?")
+(len 0xa1686f6c6121)
 ```
 
-And a list:
+Una cadena:
+
+```Clarity
+(len "¿Qué longitud tiene esta cadena?")
+```
+
+Y una lista:
 
 ```Clarity
 (len (list 4 8 15 16 23 42))
 ```
 
-#### Retrieving elements
+#### Recuperación de elementos
 
-They also allow you to extract elements at a particular index. The following
-takes the _fourth_ element from the list. (Counting starts at 0.)
+También le permiten extraer elementos en un índice particular. El siguiente
+toma el _cuarto_ elemento de la lista. (El conteo comienza en 0).
 
 ```Clarity
 (element-at (list 4 8 15 16 23 42) u3)
 ```
 
-You can also do the reverse and find the index of a particular item in a
-sequence. We can search the list to see if it contains the value `23`.
+También puede hacer lo inverso y buscar el índice de un elemento particular en una
+secuencia. Podemos buscar en la lista para ver si contiene el valor `23`.
 
 ```Clarity
 (index-of (list 4 8 15 16 23 42) 23)
 ```
 
-And we get `(some u4)`, indicating there is a value of `23` at index four. The
-attentive might now be wondering, what is this _"some"_? Read on and all will be
-revealed in the next section.
+Y obtenemos `(some u4)`, lo que indica que hay un valor de `23` en el índice cuatro. El
+atento puede que ahora se pregunte, ¿qué es este _"some"_? Siga leyendo y todo se
+revelará en la siguiente sección.
