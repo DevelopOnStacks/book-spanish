@@ -1,97 +1,68 @@
 ## Variables
 
-Variables are data members that can be changed over time. They are only
-modifiable by the current smart contract. Variables have a predefined type and
-an initial value.
+Las variables son miembros de datos que pueden cambiarse con el tiempo. Solo son
+modificables por el contrato inteligente actual. Las variables tienen un tipo predefinido y
+un valor inicial.
 
 ```Clarity,{"nonplayable":true}
 (define-data-var var-name var-type initial-value)
 ```
 
-Where the `var-type` is a _type signature_ and `initial-value` a valid value for
-the specified type. Although you can name a variable pretty much anything, you
-should be mindful of the [built-in keywords](ch03-00-keywords.md). Do not use
-keywords as variable names.
+Donde `var-type` es una _firma de tipo_ y `initial-value` un valor válido para
+el tipo especificado. Aunque puede nombrar una variable prácticamente de cualquier manera,
+debe tener en cuenta las [palabras clave integradas](ch03-00-keywords.md). No use
+palabras clave como nombres de variables.
 
-Variables can be read using the function `var-get` and changed using `var-set`.
+Las variables se pueden leer usando la función `var-get` y se pueden cambiar usando `var-set`.
 
 ```Clarity
-;; Define an unsigned integer data var with an initial value of u0.
+;; Define una variable de datos entera sin signo con un valor inicial de u0.
 (define-data-var my-number uint u0)
 
-;; Print the initial value.
+;; Imprime el valor inicial.
 (print (var-get my-number))
 
-;; Change the value.
+;; Cambia el valor.
 (var-set my-number u5000)
 
-;; Print the new value.
+;; Imprime el nuevo valor.
 (print (var-get my-number))
 ```
 
-Notice the `uint`? That is the type signature.
+¿Observas el `uint`? Esa es la firma del tipo.
 
-## Type signatures
+## Firmas de tipo
 
-The [chapter on types](ch02-00-types.md) covered how to express a value of a
-specific type. Type signatures, on the other hand, define the admitted type for
-a variable or function argument. Let us take a look at what the signatures look
-like.
+El [capítulo sobre tipos](ch02-00-types.md) cubrió cómo expresar un valor de un
+tipo específico. Las firmas de tipo, por otro lado, definen el tipo admitido para un
+argumento de variable o función. Veamos cómo se ven las firmas.
 
-| Type                                                             | Signature                                                                                                                                                                |
-| ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| [Signed integer](ch02-01-primitive-types.md#signed-integers)     | `int`                                                                                                                                                                    |
-| [Unsigned integer](ch02-01-primitive-types.md#unsigned-integers) | `uint`                                                                                                                                                                   |
-| [Boolean](ch02-01-primitive-types.md#booleans)                   | `bool`                                                                                                                                                                   |
-| [Principal](ch02-01-primitive-types.md#principals)               | `principal`                                                                                                                                                              |
-| [Buffer](ch02-02-sequence-types.md#buffers)                      | `(buff max-len)`, where `max-len` is a number defining the maximum length.                                                                                               |
-| [ASCII string](ch02-02-sequence-types.md#strings)                | `(string-ascii max-len)`, where `max-len` is a number defining the maximum length.                                                                                       |
-| [UTF-8 string](ch02-02-sequence-types.md#strings)                | `(string-utf8 max-len)`, where `max-len` is a number defining the maximum length.                                                                                        |
-| [List](ch02-02-sequence-types.md#lists)                          | `(list max-len element-type)`, where `max-len` is a number defining the maximum length and `element-type` a type signature. Example: `(list 10 principal)`.              |
-| [Optional](ch02-03-composite-types.md#optionals)                 | `(optional some-type)`, where `some-type` is a type signature. Example: `(optional principal)`.                                                                          |
-| [Tuple](ch02-03-composite-types.md#tuples)                       | `{key1: entry-type, key2: entry-type}`, where `entry-type` is a type signature. Every key can have its own type. Example: `{sender: principal, amount: uint}`.           |
-| [Response](ch02-03-composite-types.md#responses)                 | `(response ok-type err-type)`, where `ok-type` is the type of returned `ok` values and `err-type` is the type of returned `err` values. Example: `(response bool uint)`. |
+| Tipo | Firma |
+| ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| [Entero con signo](ch02-01-primitive-types.md#signed-integers) | `int` |
+| [Entero sin signo](ch02-01-primitive-types.md#unsigned-integers) | `uint` |
+| [Booleano](ch02-01-primitive-types.md#booleans) | `bool` |
+| [Principal](ch02-01-primitive-types.md#principals) | `principal` |
+| [Búfer](ch02-02-sequence-types.md#buffers) | `(buff max-len)`, donde `max-len` es un número que define la longitud máxima. |
+| [Cadena ASCII](ch02-02-sequence-types.md#strings) | `(string-ascii max-len)`, donde `max-len` es un número que define la longitud máxima. |
+| [Cadena UTF-8](ch02-02-sequence-types.md#strings) | `(string-utf8 max-len)`, donde `max-len` es un número que define la longitud máxima. |
+| [Lista](ch02-02-sequence-types.md#lists) | `(list max-len element-type)`, donde `max-len` es un número que define la longitud máxima y `element-type` una firma de tipo. Ejemplo: `(list 10 principal)`. |
+| [Opcional](ch02-03-composite-types.md#optionals) | `(optional some-type)`, donde `some-type` es una firma de tipo. Ejemplo: `(optional principal)`. |
+| [Tupla](ch02-03-composite-types.md#tuples) | `{key1: entry-type, key2: entry-type}`, donde `entry-type` es una firma de tipo. Cada clave puede tener su propio tipo. Ejemplo: `{sender: principal, amount: uint}`. |
+| [Respuesta](ch02-03-composite-types.md#responses) | `(response ok-type err-type)`, donde `ok-type` es el tipo de los valores `ok` devueltos y `err-type` es el tipo de los valores `err` devueltos. Ejemplo: `(response bool uint)`. |
 
-We can see that some types indicate a _maximum length_. It goes without saying
-that the length is strictly enforced. Passing a value that is too long will
-result in an analysis error. Try changing the following example by making the
-`"This works."` string too long.
-
-```Clarity
-(define-data-var message (string-ascii 15) "This works.")
-```
-
-Like other kinds of definition statements, `define-data-var` may only be used at
-the top level of a smart contract definition; that is, you cannot put a define
-statement in the middle of a function body.
-
-Remember that whitespace can be used to make your code more readable. If you are
-defining a complicated tuple type, simply space it out:
+Podemos ver que algunos tipos indican una _longitud máxima_. No hace falta decir
+que la longitud se aplica estrictamente. Pasar un valor demasiado largo
+resultará en un error de análisis. Intente cambiar el siguiente ejemplo haciendo que la cadena
+`"Esto funciona."` sea demasiado larga.
 
 ```Clarity
-(define-data-var high-score
-	;; Tuple type definition:
-	{
-		score: uint,
-		who: (optional principal),
-		at-height: uint
-	}
-	;; Tuple value:
-	{
-		score: u0,
-		who: none,
-		at-height: u0
-	}
-)
-
-;; Print the initial value.
-(print (var-get high-score))
-
-;; Change the value.
-(var-set high-score
-	{score: u10, who: (some tx-sender), at-height: block-height}
-)
-
-;; Print the new value.
-(print (var-get high-score))
+(define-data-var message (string-ascii 15) "Esto funciona").
 ```
+
+Al igual que otros tipos de declaraciones de definición, `define-data-var` solo se puede usar en
+el nivel superior de una definición de contrato inteligente; es decir, no puede colocar una declaración de
+definición en el medio del cuerpo de una función.
+
+Recuerde que se pueden usar espacios en blanco para hacer que su código sea más legible. Si está
+definiendo un tipo de tupla complicado, simplemente s
