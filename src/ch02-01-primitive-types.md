@@ -1,131 +1,122 @@
-## Primitives
+## Primitivos
 
-Primitive types are the most basic components. These are: _signed and unsigned
-integers_, _booleans_, and _principals_.
+Los tipos primitivos son los componentes más básicos. Estos son: _enteros con signo y sin signo_, _booleanos_ y _principales_.
 
-### Signed integers
+### Enteros con signo
 
-`int`, short for _(signed) integer_. These are 128 bits numbers that can either
-be positive or negative. The minimum value is -2^127 and the maximum value is
-2^127 - 1. Some examples: `0`, `5000`, `-45`.
+`int`, abreviatura de _entero (con signo)_. Son números de 128 bits que pueden ser positivos o negativos. El valor mínimo es -2^127 y el valor máximo es
+2^127 - 1. Algunos ejemplos: `0`, `5000`, `-45`.
 
-### Unsigned integers
+### Enteros sin signo
 
-`uint`, short for _unsigned integer_. These are 128 bits numbers that can only
-be positive. The minimum value is therefore 0 and the maximum value is
-2^128 - 1. **Unsigned integers are always prefixed by the character `u`.** Some
-examples: `u0`, `u40935094534`.
+`uint`, abreviatura de _entero sin signo_. Son números de 128 bits que solo pueden ser positivos. Por lo tanto, el valor mínimo es 0 y el valor máximo es
+2^128 - 1. **Los números enteros sin signo siempre tienen como prefijo el carácter `u`.** Algunos
+ejemplos: `u0`, `u40935094534`.
 
-Clarity has many built-in functions that accept either signed or unsigned
-integers.
+Clarity tiene muchas funciones integradas que aceptan números enteros con o sin signo.
 
-Addition:
+Suma:
 
 ```Clarity
 (+ u2 u3)
 ```
 
-Subtraction:
+Resta:
 
 ```Clarity
 (- 5 10)
 ```
 
-Multiplication:
+Multiplicación:
 
 ```Clarity
 (* u2 u16)
 ```
 
-Division:
+División:
 
 ```Clarity
 (/ 100 4)
 ```
 
-As you might have noticed by now, integers are always whole numbers—there are no
-decimal points. It is something to keep in mind when writing your code.
+Como ya habrás notado, los números enteros son siempre números enteros; no hay puntos decimales. Es algo que debes tener en cuenta al escribir tu código.
 
-```Clarity
+```Claridad
 (/ u10 u3)
 ```
 
-If you punch the above into a calculator, you will likely get `3.3333333333...`.
-Not with integers! The above expression evaluates to `u3`, the decimals are
-dropped.
+Si ingresas lo anterior en una calculadora, probablemente obtendrás `3.3333333333...`.
+¡No con números enteros! La expresión anterior se evalúa como `u3`, los decimales se
+eliminan.
 
-There are many more functions that take integers as inputs. We will get to the
-rest later in the book.
+Hay muchas más funciones que toman números enteros como entradas. Llegaremos al resto más adelante en el libro.
 
-### Booleans
+### Booleanos
 
-`bool`, short for _boolean_. A boolean value is either `true` or `false`. They
-are used to check if a certain condition is met or unmet (true or false). Some
-built-in functions that accept booleans:
+`bool`, abreviatura de _boolean_. Un valor booleano es `true` o `false`. Se
+usan para verificar si una determinada condición se cumple o no (verdadera o falsa). Algunas
+funciones integradas que aceptan booleanos:
 
-`not` (inverts a boolean):
+`not` (invierte un booleano):
 
 ```Clarity
 (not true)
 ```
 
-`and` (returns `true` if all inputs are `true`):
+`and` (devuelve `true` si todas las entradas son `true`):
 
 ```Clarity
 (and true true true)
 ```
 
-`or` (returns `true` if at least one input is `true`):
+`or` (devuelve `true` si al menos una entrada es `true`):
 
 ```Clarity
 (or false true false)
 ```
 
-### Principals
+### Principales
 
-A principal is a special type in Clarity and represents a Stacks address on
-the blockchain. It is a unique identifier you can roughly equate to an email
-address or bank account number—although definitely not the same! You might have
-also heard the term _wallet address_ as well. Clarity admits two different kinds
-of principals: _standard principals_ and _contract principals_. Standard
-principals are backed by a corresponding private key whilst contract principals
-point to a smart contract. Principals follow a specific structure and always
-start with the characters `SP` for the Stacks mainnet and `ST` for the testnet
-and mocknet[^1].
+Un principal es un tipo especial en Clarity y representa una dirección de Stacks en
+la cadena de bloques. Es un identificador único que se puede equiparar aproximadamente a una dirección de correo electrónico o un número de cuenta bancaria, ¡aunque definitivamente no es lo mismo! Es posible que también hayas oído el término _dirección de billetera_. Clarity admite dos tipos diferentes de principales: _principales estándar_ y _principales de contrato_. Los principales
+estándar están respaldados por una clave privada correspondiente, mientras que los principales de contrato
+apuntan a un contrato inteligente. Los principales siguen una estructura específica y siempre
+comienzan con los caracteres `SP` para la red principal de Stacks y `ST` para la red de prueba
+y mocknet[^1].
 
-A literal principal value is prefixed by a single quote (`'`) in Clarity. Notice
-there is no closing single quote.
+Un valor principal literal tiene como prefijo una comilla simple (`'`) en Clarity. Observe
+que no hay comilla simple de cierre.
 
 ```Clarity
 'ST1HTBVD3JG9C05J7HBJTHGR0GGW7KXW28M5JS8QE
 ```
 
-Contract principals are a compound of the standard principal that deployed the
-contract and the contract name, delimited by a dot:
+Los principales de contrato son un compuesto del principal estándar que implementó el
+contrato y el nombre del contrato, delimitado por un punto:
 
 ```Clarity
 'ST1HTBVD3JG9C05J7HBJTHGR0GGW7KXW28M5JS8QE.my-awesome-contract
 ```
 
-You will use the principal type often when writing Clarity. It is used to check
-who is calling the contract, recording information about different principals,
-function calls across contracts, and much more.
+Usará el tipo principal a menudo al escribir Clarity. Se utiliza para comprobar
+quién está llamando al contrato, registrar información sobre diferentes principales,
+llamadas de funciones en todos los contratos y mucho más.
 
-To retrieve the current STX balance of a principal, we can pass it to the
-`stx-get-balance` function.
+Para recuperar el saldo actual de STX de un principal, podemos pasarlo a la función
+`stx-get-balance`.
 
 ```Clarity
 (stx-get-balance 'ST1HTBVD3JG9C05J7HBJTHGR0GGW7KXW28M5JS8QE)
 ```
 
-Both kinds of principals can hold tokens, we can thus also check the balance of
-a contract.
+Ambos tipos de principales pueden tener tokens, por lo que también podemos comprobar el saldo de
+un contrato.
 
 ```Clarity
 (stx-get-balance 'ST1HTBVD3JG9C05J7HBJTHGR0GGW7KXW28M5JS8QE.my-contract)
 ```
 
-Zero balances are a little boring, so let us send some some STX to a principal:
+Los saldos cero son un poco aburridos, así que enviemos algunos STX a un principal:
 
 ```Clarity,{"setup":["::mint_stx ST000000000000000000002AMW42H 1000000"]}
 (stx-transfer? u500 tx-sender 'ST1HTBVD3JG9C05J7HBJTHGR0GGW7KXW28M5JS8QE)
@@ -133,22 +124,21 @@ Zero balances are a little boring, so let us send some some STX to a principal:
 
 ---
 
-Knowing about primitives, and the fact that types can never mix, it is now clear
-why the example in the previous section does not work. Since the first number is
-a _signed integer_ and the next one is an _unsigned integer_—notice the `u`—the
-analyser rejects the code as invalid. We should provide it with two signed or
-two unsigned integers instead.
+Al conocer los primitivos y el hecho de que los tipos nunca se pueden mezclar, ahora está claro
+por qué el ejemplo de la sección anterior no funciona. Dado que el primer número es
+un _entero con signo_ y el siguiente es un _entero sin signo_ (observe la `u`), el
+analizador rechaza el código por considerarlo inválido. En su lugar, deberíamos proporcionarle dos enteros con signo o dos enteros sin signo.
 
-Incorrect:
+Incorrecto:
 
 ```Clarity
 (+ 2 u3)
 ```
 
-Correct:
+Correcto:
 
 ```Clarity
 (+ u2 u3)
 ```
 
-[^1]: More on the different kinds of networks in a later chapter.
+[^1]: Más información sobre los diferentes tipos de redes en un capítulo posterior.
