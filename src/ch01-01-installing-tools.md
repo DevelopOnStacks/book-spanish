@@ -1,82 +1,82 @@
-## Installing Clarinet
+## Instalación de Clarinet
 
-### What is Clarinet?
-Clarinet is a Clarity runtime packaged as a command line tool, designed to facilitate smart contract understanding, development, testing and deployment. Clarinet consists of a Clarity REPL and a testing harness, which, when used together allow you to rapidly develop and test a Clarity smart contract, with the need to deploy the contract to a local devnet or testnet.
+### ¿Qué es Clarinet?
+Clarinet es un entorno de ejecución de Clarity empaquetado como una herramienta de línea de comandos, diseñado para facilitar la comprensión, el desarrollo, la prueba y la implementación de contratos inteligentes. Clarinet consta de un REPL de Clarity y un arnés de prueba que, cuando se usan juntos, le permiten desarrollar y probar rápidamente un contrato inteligente de Clarity, sin la necesidad de implementar el contrato en una red de desarrollo o de prueba local.
 
-Clarity is a decidable smart contract language that optimises for predictability and security, designed for the Stacks blockchain. Smart contracts allow developers to encode essential business logic on a blockchain.
+Clarity es un lenguaje de contrato inteligente decidible que optimiza la previsibilidad y la seguridad, diseñado para la cadena de bloques Stacks. Los contratos inteligentes permiten a los desarrolladores codificar la lógica empresarial esencial en una cadena de bloques.
 
-### Install on macOS (Homebrew)
-This process relies on the macOS package manager called [Homebrew](https://brew.sh/). Using the `brew` command you can easily add powerful functionality to your mac, but first we have to install it.
+### Instalación en macOS (Homebrew)
+Este proceso se basa en el administrador de paquetes de macOS llamado [Homebrew](https://brew.sh/). Con el comando `brew` puede agregar fácilmente una funcionalidad poderosa a su Mac, pero primero debemos instalarlo.
 
-To get started, launch your [Terminal](https://support.apple.com/en-ph/guide/terminal/welcome/mac) (/Applications/Utilities/Terminal) application. Terminal is a versatile command line system that comes with every Mac computer.
+Para comenzar, inicie la aplicación [Terminal](https://support.apple.com/es-es/guide/terminal/welcome/mac) (/Aplicaciones/Utilidades/Terminal). Terminal es un sistema de línea de comandos versátil que viene con todas las computadoras Mac.
 
-If you do not already have [XCode](https://developer.apple.com/xcode/) installed, it's best to first install the command line tools as these will be used by homebrew:
+Si aún no tienes instalado [XCode](https://developer.apple.com/xcode/), lo mejor es instalar primero las herramientas de línea de comandos, ya que estas serán utilizadas por Homebrew:
 ```bash
 xcode-select --install
 ```
 
-When the XCode is complete, proceed with Homebrew installation:
+Cuando XCode esté completo, procede con la instalación de Homebrew:
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 ```
 
-Now you can test your installation to ensure you have installed brew correctly, simply type:
+Ahora puedes probar tu instalación para asegurarte de que hayas instalado Brew correctamente, simplemente escribe:
 ```bash
 % brew --version
 Homebrew 3.6.3
 ```
 
-Finally, you can now install the Clarinet on your mac:
+Finalmente, ahora puedes instalar Clarinet en tu Mac:
 ```bash
 brew install clarinet
 ```
-Just follow the terminal prompts if necessary.
+Solo sigue las indicaciones de la terminal si es necesario.
 
-### Install on Windows
+### Instalar en Windows
 
-The easiest way to install Clarinet on Windows is to use the MSI installer, that can be downloaded from the [releases page](https://github.com/hirosystems/clarinet/releases).
+La forma más sencilla de instalar Clarinet en Windows es usar el instalador MSI, que se puede descargar desde la [página de versiones](https://github.com/hirosystems/clarinet/releases).
 
-Clarinet is also available on Winget, the package manager that Microsoft started including in the latest Windows updates:
+Clarinet también está disponible en Winget, el administrador de paquetes que Microsoft comenzó a incluir en las últimas actualizaciones de Windows:
 
 ```powershell
 winget install clarinet
 ```
 
-### Install from a pre-built binary
+### Instalar desde un binario precompilado
 
-To install Clarinet from pre-built binaries, download the latest release from the [releases page](https://github.com/hirosystems/clarinet/releases).
-Unzip the binary, then copy it to a location that is already in your path, such as `/usr/local/bin`.
+Para instalar Clarinet desde binarios precompilados, descargue la última versión desde la [página de versiones](https://github.com/hirosystems/clarinet/releases).
+Descomprima el binario y luego cópielo en una ubicación que ya esté en su ruta, como `/usr/local/bin`.
 
 ```sh
-# note: you can change the v0.27.0 with version that are available in the releases page.
+# nota: puede cambiar la v0.27.0 con la versión que está disponible en la página de versiones.
 wget -nv https://github.com/hirosystems/clarinet/releases/download/v0.27.0/clarinet-linux-x64-glibc.tar.gz -O clarinet-linux-x64.tar.gz
 tar -xf clarinet-linux-x64.tar.gz
 chmod +x ./clarinet
 mv ./clarinet /usr/local/bin
 ```
 
-On MacOS, you may get security errors when trying to run the pre-compiled binary. You can resolve the security warning
-with this command:
+En MacOS, puede recibir errores de seguridad al intentar ejecutar el binario precompilado. Puede resolver la advertencia de seguridad
+con este comando:
 
 ```sh
 xattr -d com.apple.quarantine /path/to/downloaded/clarinet/binary
 ```
 
-### Install from source using Cargo
+### Instalar desde la fuente usando Cargo
 
-#### Prerequisites
+#### Requisitos previos
 
-[Install Rust](https://www.rust-lang.org/tools/install) for access to `cargo`, the Rust package manager.
+[Instalar Rust](https://www.rust-lang.org/tools/install) para acceder a `cargo`, el administrador de paquetes de Rust.
 
-On Debian and Ubuntu-based distributions, please install the following packages before building Clarinet.
+En distribuciones basadas en Debian y Ubuntu, instale los siguientes paquetes antes de compilar Clarinet.
 
 ```bash
 sudo apt install build-essential pkg-config libssl-dev
 ```
 
-#### Build Clarinet
+#### Construir Clarinet
 
-You can build Clarinet from source using Cargo with the following commands:
+Puedes construir Clarinet desde el código fuente usando Cargo con los siguientes comandos:
 
 ```bash
 git clone https://github.com/hirosystems/clarinet.git --recursive
@@ -84,27 +84,27 @@ cd clarinet
 cargo clarinet-install
 ```
 
-By default, you will be in our development branch, `develop`, with code that has not been released yet. If you plan to submit any changes to the code, then this is the right branch for you. If you just want the latest stable version, switch to the main branch:
+De manera predeterminada, estarás en nuestra rama de desarrollo, `develop`, con código que aún no se ha publicado. Si planeas enviar algún cambio al código, esta es la rama adecuada para ti. Si solo quieres la última versión estable, cambia a la rama principal:
 
 ```bash
 git checkout main
 ```
 
-If you have previously checked out the source, ensure you have the latest code (including submodules) before building using:
+Si ya has verificado el código fuente, asegúrate de tener el código más reciente (incluidos los submódulos) antes de compilar usando:
 
 ```bash
 git pull
 git submodule update --recursive
 ```
 
-### Verify Clarinet installation
+### Verifica la instalación de Clarinet
 
-You can verify Clarinet is installed properly by running `clarinet --version` in
-your favourite Terminal emulator.
+Puedes verificar que Clarinet esté instalado correctamente ejecutando `clarinet --version` en
+tu emulador de terminal favorito.
 
 ```bash
 % clarinet --version
 clarinet-cli 1.0.2
 ```
 
-More information about Clarinet: [https://github.com/hirosystems/clarinet/blob/develop/README.md](https://github.com/hirosystems/clarinet/blob/develop/README.md)
+Más información sobre Clarinet: [https://github.com/hirosystems/clarinet/blob/develop/README.md](https://github.com/hirosystems/clarinet/blob/develop/README.md)
