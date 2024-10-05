@@ -15,26 +15,17 @@ se espera que se agregue en el futuro.(PDF, EPUB, y así sucesivamente).
 
 Se puede acceder al libro en línea aquí: http://book.clarity-lang.org.
 
-# Edificio
+# Construir
 
 - Clon este repositorio.
-- `NPM Install` para instalar dependencias de compilación.
-- `NPM Run Build` emitirá una versión HTML a la carpeta 'Build`.
 
-Puede usar `npm ejecutar dev` para ejecutar una instancia local que desencadena una reconstrucción cuando
+  -  `npm install` para instalar dependencias de compilación.
+  -  `npm run build` construirá una versión HTML a la carpeta 'Build`.
+
+Puede usar `npm run dev` para ejecutar una instancia local que desencadena una reconstrucción cuando
 Detecta un cambio de archivo.
 
 # Licencia
 
 Creative Commons Attribution Share Tanto 4.0 International.Cualquier código tiene licencia
 bajo MIT.
-- `npm install` to install build dependencies.
-- `npm run build` will output a HTML version to the `build` folder.
-
-You may use `npm run dev` to run a local instance that triggers a rebuild when
-it detects a file change.
-
-# License
-
-Creative Commons Attribution Share Alike 4.0 International. Any code is licensed
-under MIT.
