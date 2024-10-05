@@ -1,4 +1,4 @@
-# El Libro Sobre Clarity
+# El libro de Clarity
 
 _Clarity of Mind_ es tanto una introducción como un libro de referencia para el
 Clarity Smart Contract Language.La claridad se desarrolla como un esfuerzo conjunto de
