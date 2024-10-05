@@ -1,149 +1,142 @@
-## Composite types
+## Tipos compuestos
 
-These are more complex types that contain a number of other types. Composites
-make it a lot easier to create larger smart contracts.
+Son tipos más complejos que contienen varios otros tipos. Los compuestos
+facilita mucho la creación de contratos inteligentes más grandes.
 
-### Optionals
+### Opcionales
 
-The type system in Clarity does not allow for empty values. It means that a
-boolean is always either `true` or `false`, and an integer always contains a
-number. But sometimes you want to be able to express a variable that could have
-_some_ value, or _nothing_. For this you use the `optional` type. This type
-wraps a different type and can either be `none` or a value of that type. The
-optional type is very powerful and the tooling will perform checks to make sure
-they are handled properly in the code. Let us look at a few examples.
+El sistema de tipos en Clarity no permite valores vacíos. Esto significa que un
+booleano siempre es `true` o `false`, y un entero siempre contiene un
+número. Pero a veces desea poder expresar una variable que podría tener
+_algún_ valor o _nada_. Para esto, se utiliza el tipo `opcional`. Este tipo
+envuelve un tipo diferente y puede ser `none` o un valor de ese tipo. El
+tipo opcional es muy poderoso y las herramientas realizarán verificaciones para asegurarse de que se gestionen correctamente en el código. Veamos algunos ejemplos.
 
-Wrapping a `uint`:
+Envolviendo un `uint`:
 
 ```Clarity
 (some u5)
 ```
 
-An ASCII string:
+Una cadena ASCII:
 
 ```Clarity
-(some "An optional containing a string.")
+(some "Un opcional que contiene una cadena").
 ```
 
-Or even a principal:
+O incluso un principal:
 
 ```Clarity
 (some 'ST1HTBVD3JG9C05J7HBJTHGR0GGW7KXW28M5JS8QE)
 ```
 
-_Nothing_ is represented by the keyword `none`:
+_Nothing_ se representa con la palabra clave `none`:
 
 ```Clarity
 none
 ```
 
-Functions that might or might not return a value tend to return an optional
-type. As we saw in the previous section, both `element-at` and `index-of`
-returned a `(some ...)`. It is because for some inputs, no matching value can be
-found. We can take the same list but this time try to retrieve an element at an
-index _larger_ than the total size of the list. We see that it results in a
-`none` value.
+Las funciones que pueden o no devolver un valor tienden a devolver un tipo opcional. Como vimos en la sección anterior, tanto `element-at` como `index-of`
+devolvieron un `(some ...)`. Esto se debe a que para algunas entradas, no se puede encontrar un valor coincidente. Podemos tomar la misma lista, pero esta vez intentar recuperar un elemento en un índice _más grande_ que el tamaño total de la lista. Vemos que da como resultado un valor
+`none`.
 
 ```Clarity
 (element-at (list 4 8 15 16 23 42) u5000)
 ```
 
-When writing smart contracts, the developer must handle cases where `(some ...)`
-is returned differently from when `none` is returned.
+Al escribir contratos inteligentes, el desarrollador debe manejar los casos en los que `(some ...)`
+se devuelve de manera diferente a cuando se devuelve `none`.
 
-In order to access the value contained within an optional, you have to _unwrap_
-it.
+Para acceder al valor contenido dentro de un opcional, debe _desenvolverlo_.
 
 ```Clarity
 (unwrap-panic (some u10))
 ```
 
-Trying to unwrap a `none` will result in an error because there is nothing to
-unwrap. The _"panic"_ in `unwrap-panic` should give that away.
+Intentar desenvolver un `none` dará como resultado un error porque no hay nada que
+desenvolver. El _"panic"_ en `unwrap-panic` debería delatar eso.
 
 ```Clarity
 (unwrap-panic none)
 ```
 
-Later chapters on error handling and defining custom functions will dive into
-how to deal with such errors and what effects they have on the chain state.
+En capítulos posteriores sobre el manejo de errores y la definición de funciones personalizadas se profundizará en
+cómo lidiar con dichos errores y qué efectos tienen en el estado de la cadena.
 
-### Tuples
+### Tuplas
 
-Tuples are records that hold multiple values in named fields. Each field has its
-own type, making it very useful to pass along structured data in one go. Tuples
-have their own special formatting and use curly braces.
+Las tuplas son registros que contienen múltiples valores en campos nombrados. Cada campo tiene su
+propio tipo, lo que hace que sea muy útil pasar datos estructurados de una sola vez. Las tuplas
+tienen su propio formato especial y usan llaves.
 
 ```Clarity
 {
-	id: u5, ;; a uint
-	username: "ClarityIsAwesome", ;; an ASCI string
-	address: 'ST1HTBVD3JG9C05J7HBJTHGR0GGW7KXW28M5JS8QE ;; and a principal
+id: u5, ;; un uint
+username: "ClarityIsAwesome", ;; una cadena ASCI
+address: 'ST1HTBVD3JG9C05J7HBJTHGR0GGW7KXW28M5JS8QE ;; y un principal
 }
 ```
 
-The members inside tuples are unordered. You retrieve them by name and cannot
-iterate over them. A specific member can be read using the `get` function.
+Los miembros dentro de las tuplas no están ordenados. Los recupera por nombre y no puede
+iterarlo. Un miembro específico puede leerse utilizando la función `get`.
 
 ```Clarity
 (get username { id: 5, username: "ClarityIsAwesome" })
 ```
 
-Tuples, like other values, are immutable once defined. It means that they cannot
-be changed. You can, however, merge two tuples together to form a new tuple.
-Merging is done from left to right and will overwrite values with the same key.
+Las tuplas, al igual que otros valores, son inmutables una vez definidas. Esto significa que no pueden
+cambiarse. Sin embargo, puede fusionar dos tuplas para formar una nueva tupla.
+La fusión se realiza de izquierda a derecha y sobrescribirá los valores con la misma clave.
 
 ```Clarity
 (merge
-	{id: 5, score: 10, username: "ClarityIsAwesome"}
-	{score: 20, winner: true}
+{id: 5, score: 10, username: "ClarityIsAwesome"}
+{score: 20, winner: true}
 )
 ```
 
-The above expression will result in a tuple with both keys merged and the score
-set to `20`.
+La expresión anterior dará como resultado una tupla con ambas claves fusionadas y el puntaje
+establecido en `20`.
 
-Since the merge function returns an _entirely new_ tuple, member types can in
-fact be overwritten by a later tuple in the sequence.
+Dado que la función de fusión devuelve una tupla _completamente nueva_, los tipos de miembros pueden, de hecho, sobrescribirse con una tupla posterior en la secuencia.
 
 ```Clarity
 (merge
-	{id: u6, score: 10}
-	{score: u50}
+{id: u6, puntuación: 10}
+{score: u50}
 )
 ```
 
-### Responses
+### Respuestas
 
-A response is a composite type that wraps another type just like an optional.
-What is different, however, is that a response type includes an indication of
-whether a specific action was successful or a failure. Responses have special
-effects when returned by public functions. We will cover those effects in the
-[chapter on functions](ch04-01-public-functions.md).
+Una respuesta es un tipo compuesto que envuelve a otro tipo como si fuera un opcional.
+Sin embargo, lo que es diferente es que un tipo de respuesta incluye una indicación de
+si una acción específica fue exitosa o fallida. Las respuestas tienen efectos
+especiales cuando son devueltas por funciones públicas. Trataremos esos efectos en el
+[capítulo sobre funciones](ch04-01-public-functions.md).
 
-A response takes the concrete form of either `(ok ...)` or `(err ...)`. Wrapping
-a value in a concrete response is straightforward:
+Una respuesta toma la forma concreta de `(ok ...)` o `(err ...)`. Envolver
+un valor en una respuesta concreta es sencillo:
 
 ```Clarity
 (ok true)
 ```
 
-Developers usually come up with their own rules to indicate error status. You
-could for example use unsigned integers to represent a specific error code.
+Los desarrolladores generalmente crean sus propias reglas para indicar el estado de error. Por ejemplo, puede usar números enteros sin signo para representar un código de error específico.
 
 ```Clarity
-(err u5) ;; something went wrong.
+(err u5) ;; Algo salió mal.
 ```
 
-There are no explicit rules on which types you should wrap for your responses.
-Standards are currently being proposed and we will touch upon a few in the
-chapter on _Stacks Improvement Proposals_ (SIPs).
+No existen reglas explícitas sobre qué tipos debe encapsular para sus respuestas.
+Actualmente se están proponiendo estándares y abordaremos algunos en el
+capítulo sobre _Propuestas de mejora de pilas_ (SIP).
 
-Responses can be unwrapped in the same way as optional types:
+Las respuestas se pueden desencapsular de la misma manera que los tipos opcionales:
 
 ```Clarity
 (unwrap-panic (ok true))
 ```
 
-Although not necessary, private functions and read-only functions may also
-return a response type.
+Aunque no es necesario, las funciones privadas y las funciones de solo lectura también pueden
+devolver un tipo de respuesta.
