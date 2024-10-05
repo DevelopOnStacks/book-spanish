@@ -70,9 +70,8 @@ En el ejemplo anterior, el contrato A no sería vulnerable a este exploit, ya qu
 
 ## stack-block-height
 
-Refleja la altura de bloque actual de la cadena de bloques Stacks como un entero
-sin signo. Si imaginamos que la punta de la cadena está en la altura 5, podemos leer ese número
-en cualquier punto de nuestro código, retorna un `uint` número entero.
+Devuelve la altura actual del bloque Stacks como un entero
+sin signo.
 
 Implementado en: `Clarity 3`
 
