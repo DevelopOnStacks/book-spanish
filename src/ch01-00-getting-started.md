@@ -1,24 +1,18 @@
-# Getting started
+# Primeros pasos
 
-Getting started with Clarity is an order of magnitude easier than some other
-smart contract languages. Although the tooling is still a bit experimental, you
-can already do some pretty great things. Want to test a quick snippet? We have a
-self-contained REPL
-(_"[Read-Evaluate-Print Loop](https://en.wikipedia.org/wiki/Read–eval–print_loop)"_).
-Want to spin up a local simulated chain without all the hassles of running a
-full node? _Clarinet_ has got you covered. How about generating a full-fledged
-client for your smart contract? _Clarigen_ can make a difference there.
+Comenzar a usar Clarity es mucho más fácil que otros lenguajes de contratos inteligentes. Aunque las herramientas aún son un poco experimentales, ya puedes hacer algunas cosas muy buenas. ¿Quieres probar un fragmento rápido? Tenemos un REPL autónomo
+(_"[Bucle de lectura-evaluación-impresión](https://es.wikipedia.org/wiki/REPL)"_).
+¿Quieres poner en marcha una cadena simulada local sin todos los problemas de ejecutar un nodo
+completo? _Clarinet_ te tiene cubierto. ¿Qué tal generar un cliente
+completo para tu contrato inteligente? _Clarigen_ puede marcar la diferencia en ese aspecto.
 
-The book will cover installing the official Clarity REPL and Clarinet for end to
-end smart contract development. A lot of fully functioning Clarity snippets and
-example contracts will be provided as you work through the chapters. Learning by
-example is really the best way to master a new skill. The later chapters will
-challenge you to build a few common smart contracts by yourself using Clarinet.
-Extra attention will be given to best practices and proper testing.
+El libro cubrirá la instalación del REPL oficial de Clarity y Clarinet para el desarrollo de contratos inteligentes de extremo a extremo. Se proporcionarán muchos fragmentos de Clarity completamente funcionales y contratos de
+ejemplo a medida que avanzas en los capítulos. Aprender con el ejemplo es realmente la mejor manera de dominar una nueva habilidad. Los capítulos posteriores
+lo desafiarán a construir algunos contratos inteligentes comunes por su cuenta usando Clarinet.
+Se prestará especial atención a las mejores prácticas y las pruebas adecuadas.
 
-You are in for a treat if you are reading this book online. Almost all Clarity
-code snippets contained herein are _fully interactive_. When you see a play
-button, you can click it to execute the Clarity code and be shown the results
-(or mistakes) in your browser. But the fun does not stop there. You can even
-play around with these snippets by editing them directly. If you are reading
-this on a different medium, then keep the Clarity REPL by your side.
+Si lee este libro en línea, se llevará una sorpresa. Casi todos los fragmentos de código de Clarity
+que contiene este libro son _totalmente interactivos_. Cuando vea un botón de reproducción, puede hacer clic en él para ejecutar el código de Clarity y ver los resultados
+(o errores) en su navegador. Pero la diversión no termina allí. Incluso puede
+jugar con estos fragmentos editándolos directamente. Si está leyendo
+esto en un medio diferente, tenga a mano el REPL de Clarity.
