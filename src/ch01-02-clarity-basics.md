@@ -71,5 +71,6 @@ aumenta el tamaño del contrato y cualquier elemento _creativo_ que incluyas
 será visible para cualquier persona que inspeccione el código.
 
 ```Clarity{"expected_output": "15", "hint": "Convierte el siguiente cálculo en código Clarity:\n(5 * 4) - 5"}
-
+;;Convierte el siguiente cálculo en código Clarity:
+;; (5 * 4) - 5
 ```
