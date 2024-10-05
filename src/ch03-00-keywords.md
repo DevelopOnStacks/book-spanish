@@ -1,14 +1,14 @@
-# Keywords
+# Palabras clave
 
-Keywords are special terms that have an assigned meaning. We already came across
-a few keywords in the previous chapters: `true`, `false`, and `none`. There are
-a few others that demand extra attention.
+Las palabras clave son términos especiales que tienen un significado asignado. Ya nos encontramos
+con algunas palabras clave en los capítulos anteriores: `true`, `false` y `none`. Hay
+algunas otras que exigen atención adicional.
 
 ## block-height
 
-Reflects the current block height of the Stacks blockchain as an unsigned
-integer. If we imagine the chain tip to be at height 5, we can read that number
-at any point in our code.
+Refleja la altura de bloque actual de la cadena de bloques Stacks como un entero
+sin signo. Si imaginamos que la punta de la cadena está en la altura 5, podemos leer ese número
+en cualquier punto de nuestro código.
 
 ```Clarity,{"setup":["::advance_chain_tip 5"]}
 block-height
@@ -16,8 +16,8 @@ block-height
 
 ## burn-block-height
 
-Reflects the current block height of the underlying burn blockchain (in this
-case Bitcoin) as an unsigned integer.
+Refleja la altura de bloque actual de la cadena de bloques de quema subyacente (en este
+caso, Bitcoin) como un entero sin signo.
 
 ```Clarity
 burn-block-height
@@ -25,38 +25,37 @@ burn-block-height
 
 ## tx-sender
 
-Contains the principal that sent the transaction. It can be used to validate the
-principal that is calling into a public function.
+Contiene el principal que envió la transacción. Se puede utilizar para validar el principal que está llamando a una función pública.
 
 ```Clarity
 tx-sender
 ```
 
-Note that it is possible for the `tx-sender` to be a contract principal if the
-special function `as-contract` was used to shift the sending context.
+Tenga en cuenta que es posible que `tx-sender` sea un principal de contrato si se utilizó la
+función especial `as-contract` para cambiar el contexto de envío.
 
 ```Clarity
 (as-contract tx-sender)
 ```
 
-Note that using `tx-sender` as a check for permission to call a contract can expose you to a vulnerability where a malicious contract could trick a user into calling it instead of the intended contract, but the `tx-sender` check would pass, since it returns the original contract caller.
+Tenga en cuenta que el uso de `tx-sender` como verificación de permiso para llamar a un contrato puede exponerlo a una vulnerabilidad en la que un contrato malicioso podría engañar a un usuario para que lo llame en lugar del contrato previsto, pero la verificación de `tx-sender` pasaría, ya que devuelve el llamador del contrato original.
 
-For example, I think I am calling contract A, but am socially engineered into calling contract b instead. Contract b then calls into contract a but passes different parameters. Any permission checks in contract A will pass since I am the original `tx-sender`.
+Por ejemplo, creo que estoy llamando al contrato A, pero estoy siendo manipulado socialmente para llamar al contrato b en su lugar. El contrato b llama al contrato a pero pasa parámetros diferentes. Cualquier verificación de permiso en el contrato A pasará ya que soy el `tx-sender` original.
 
-For this reason, it is recommended to instead use `contract-caller`, described below.
+Por este motivo, se recomienda utilizar en su lugar `contract-caller`, que se describe a continuación.
 
 ## contract-caller
 
-Contains the principal that called the function. It can be a standard principal
-or contract principal. If the contract is called via a signed transaction
-directly, then `tx-sender` and `contract-caller` will be equal. If the contract
-calls another contract in turn, then `contract-caller` will be equal to the
-previous contract in the chain.
+Contiene el principal que llamó a la función. Puede ser un principal estándar
+o un principal de contrato. Si el contrato se llama a través de una transacción firmada
+directamente, entonces `tx-sender` y `contract-caller` serán iguales. Si el contrato
+llama a otro contrato a su vez, entonces `contract-caller` será igual al contrato
+anterior en la cadena.
 
 ```Clarity
 contract-caller
 ```
 
-In the above example, contract A would not be vulnerable to this exploit, since a permission check using `contract-caller` would result in the malicious contract, failing the permission check.
+En el ejemplo anterior, el contrato A no sería vulnerable a este exploit, ya que una verificación de permisos utilizando `contract-caller` daría como resultado que el contrato malicioso no pasara la verificación de permisos.
 
-Don't worry if this isn't fully clear now. It will become clear as we go through examples in the book.
+No se preocupe si esto no está completamente claro ahora. Se aclarará a medida que revisemos los ejemplos en el libro.
