@@ -24,24 +24,24 @@ que sea igual a cero usando la función `is-eq` (_n mod 2 debe ser igual a 0_).
 (define-data-var even-values ​​uint u0)
 
 (define-public (count-even (number uint))
-(begin
-;; incrementa la variable "event-values" en uno.
-(var-set even-values ​​(+ (var-get even-values) u1))
-
-;; verifica si el número de entrada es par (número mod 2 es igual a 0).
-(if (is-eq (mod number u2) u0)
-(ok "el número es par")
-(err "el número es impar")
+  (begin
+      ;; incrementa la variable "event-values" en uno.
+      (var-set even-values ​​(+ (var-get even-values) u1))
+  
+      ;; verifica si el número de entrada es par (número mod 2 es igual a 0).
+      (if (is-eq (mod number u2) u0)
+        (ok "el número es par")
+        (err "el número es impar")
+      )
+  )
 )
-)
-)
 
-;; Llama a count-even dos veces.
-(print (count-even u4))
-(print (count-even u7))
+  ;; Llama a count-even dos veces.
+  (print (count-even u4))
+  (print (count-even u7))
 
-;; ¿Esto devolverá u1 o u2?
-(print (var-get even-values))
+  ;; ¿Esto devolverá u1 o u2?
+  (print (var-get even-values))
 ```
 
 ¿Notaste cómo la expresión de impresión final devolvió `u1` y no `u2`, a pesar de que la función `count-even` se llama dos veces? Si estás acostumbrado a programar
@@ -64,9 +64,6 @@ Comprender las respuestas y cómo pueden afectar el estado de la cadena es clave
 más detalles sobre cómo proteger sus funciones y el flujo de control exacto.
 
 ```Claridad,{"validation_code": "(asserts! (is-eq (sum-three u3 u5 u7) (ok u15)) \"Eso no parece correcto, inténtalo de nuevo...\")\n(asserts! (is-eq (sum-three u20 u30 u40) (ok u90)) \"¡Ya casi está, inténtalo de nuevo!\")", "hint": "Escribe una función llamada 'sum-three' que sume 3 enteros sin signo".}
-(define-public (sum-three)
-
-)
-
-(print (sum-three u3 u5 u9))
+(define-public (sum-three))
+  (print (sum-three u3 u5 u9))
 ```
