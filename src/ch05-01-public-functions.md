@@ -1,74 +1,69 @@
-## Public functions
+## Funciones públicas
 
-Public functions are callable from the outside by both standard principals and
-contract principals. Contracts that feature any interactivity will need at least
-one public function. The fact of them being callable does not imply that the
-_underlying functionality_ is public. The developer can include assertions to
-make sure that only specific [contract callers](ch03-00-keywords.md) or inputs
-are valid.
+Las funciones públicas pueden ser invocadas desde el exterior tanto por los principales estándar como por los principales
+de contrato. Los contratos que presentan alguna interactividad necesitarán al menos
+una función pública. El hecho de que puedan ser invocadas no implica que la
+_funcionalidad subyacente_ sea pública. El desarrollador puede incluir afirmaciones para
+asegurarse de que solo [los llamadores de contrato](ch03-00-keywords.md) o las entradas
+sean válidas.
 
-Public functions _**must**_ return a
-[response type](ch02-03-composite-types.md#responses) value. If the function
-returns an `ok` type, then the function call is considered valid, and any
-changes made to the blockchain state will materialise. It means that state
-changes such as updating variables or transferring tokens will _**only**_ be
-committed to the chain if the contract call that triggered these changes returns
-an `ok`.
+Las funciones públicas _**deben**_ devolver un valor
+[tipo de respuesta](ch02-03-composite-types.md#responses). Si la función
+devuelve un tipo `ok`, entonces la llamada de función se considera válida y cualquier cambio
+realizado en el estado de la cadena de bloques se materializará. Esto significa que los cambios de estado, como actualizar variables o transferir tokens _**solo**_ se confirmarán en la cadena si la llamada de contrato que activó estos cambios
+devuelve un `ok`.
 
-The effects of returning an `ok` or an `err` are illustrated by the example
-below. It is a basic function that takes an unsigned integer as an input and
-will return an `ok` if it is even or an `err` if it is uneven. It will also
-increment a variable called `even-values` at the start of the function. To check
-if the number is even, we calculate the remainder of a division by two and check
-that it is equal to zero using the `is-eq` function (_n mod 2 should equal 0_).
+Los efectos de devolver un `ok` o un `err` se ilustran con el ejemplo
+a continuación. Es una función básica que toma un entero sin signo como entrada y
+devolverá un `ok` si es par o un `err` si es impar. También
+incrementará una variable llamada `even-values` al comienzo de la función. Para verificar
+si el número es par, calculamos el resto de una división por dos y verificamos
+que sea igual a cero usando la función `is-eq` (_n mod 2 debe ser igual a 0_).
 
 ```Clarity
-(define-data-var even-values uint u0)
+(define-data-var even-values ​​uint u0)
 
 (define-public (count-even (number uint))
-	(begin
-		;; increment the "event-values" variable by one.
-		(var-set even-values (+ (var-get even-values) u1))
-		
-		;; check if the input number is even (number mod 2 equals 0).
-		(if (is-eq (mod number u2) u0)
-			(ok "the number is even")
-			(err "the number is uneven")
-		)
-	)
+(begin
+;; incrementa la variable "event-values" en uno.
+(var-set even-values ​​(+ (var-get even-values) u1))
+
+;; verifica si el número de entrada es par (número mod 2 es igual a 0).
+(if (is-eq (mod number u2) u0)
+(ok "el número es par")
+(err "el número es impar")
+)
+)
 )
 
-;; Call count-even two times.
+;; Llama a count-even dos veces.
 (print (count-even u4))
 (print (count-even u7))
 
-;; Will this return u1 or u2?
+;; ¿Esto devolverá u1 o u2?
 (print (var-get even-values))
 ```
 
-Did you notice how the final print expression returned `u1` and not `u2`, even
-though the `count-even` function is called twice? If you are used to programming
-in a different language, for example JavaScript, then it might strike you as
-odd: the `even-values` variable is updated at the start of the function so it
-seems intuitive that the number should increment on every function call.
+¿Notaste cómo la expresión de impresión final devolvió `u1` y no `u2`, a pesar de que la función `count-even` se llama dos veces? Si estás acostumbrado a programar
+en un lenguaje diferente, por ejemplo JavaScript, entonces puede que te parezca
+extraño: la variable `even-values` se actualiza al inicio de la función, por lo que parece intuitivo que el número debería incrementarse en cada llamada de función.
 
-Edit the example above and try going through the following iterations:
+Edita el ejemplo anterior e intenta realizar las siguientes iteraciones:
 
-- Replace the uneven number `u7` with an even number like `u8`. Does the
-  printout of `even-values` contain `u1` or `u2`?
-- Change the `err` type in the `if` expression to an `ok`. What is the value of
-  `even-values` then?
+- Reemplaza el número impar `u7` con un número par como `u8`. ¿La
+impresión de `even-values` contiene `u1` o `u2`?
 
-What happens is that the entire public function call is rolled back or
-_reverted_ as soon as it returns an `err` value. It is as if the function call
-never happened! It therefore does not matter if you update the variable at the
-start or end of the function.
+- Cambia el tipo `err` en la expresión `if` a `ok`. ¿Cuál es el valor de `even-values` entonces?
 
-Understanding responses and how they can affect the chain state is key to being
-a successful smart contract developer. The chapter on error handling will go in
-greater detail on how to guard your functions and the exact control flow.
+Lo que sucede es que toda la llamada de función pública se revierte o
+_revierte_ tan pronto como devuelve un valor `err`. ¡Es como si la llamada a la función
+nunca hubiera ocurrido! Por lo tanto, no importa si actualiza la variable al
+inicio o al final de la función.
 
-```Clarity,{"validation_code":"(asserts! (is-eq (sum-three u3 u5 u7) (ok u15)) \"That does not seem right, try again...\")\n(asserts! (is-eq (sum-three u20 u30 u40) (ok u90)) \"Almost there, try again!\")","hint":"Write a function called 'sum-three' that sums 3 unsigned integers."}
+Comprender las respuestas y cómo pueden afectar el estado de la cadena es clave para ser un desarrollador de contratos inteligentes exitoso. El capítulo sobre manejo de errores brindará
+más detalles sobre cómo proteger sus funciones y el flujo de control exacto.
+
+```Claridad,{"validation_code": "(asserts! (is-eq (sum-three u3 u5 u7) (ok u15)) \"Eso no parece correcto, inténtalo de nuevo...\")\n(asserts! (is-eq (sum-three u20 u30 u40) (ok u90)) \"¡Ya casi está, inténtalo de nuevo!\")", "hint": "Escribe una función llamada 'sum-three' que sume 3 enteros sin signo".}
 (define-public (sum-three)
 
 )
