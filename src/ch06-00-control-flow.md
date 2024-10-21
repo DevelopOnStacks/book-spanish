@@ -21,7 +21,7 @@ izquierda a derecha. `begin` lo ilustra perfectamente:
 La primera expresión de impresión se evalúa primero, la segunda después, y así sucesivamente.
 Pero hay algunas funciones que realmente influyen en el flujo de control. Estas
 se denominan acertadamente _funciones de flujo de control_. Si comprender
-[respuestas](ch05-01-public-functions.md) es clave para convertirse en un desarrollador
+[response (respuestas)](ch05-01-public-functions.md) es clave para convertirse en un desarrollador
 exitoso de contratos inteligentes, entonces comprender las funciones de control es clave para convertirse en un gran desarrollador de contratos inteligentes. Los nombres de las funciones de flujo de control son:
 `asserts!`, `try!`, `unwrap!`, `unwrap-err!`, `unwrap-panic` y
 `unwrap-err-panic`.
