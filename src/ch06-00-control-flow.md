@@ -1,53 +1,49 @@
-# Control flow & error handling
+# Flujo de control y manejo de errores
 
-Errors, would it not be great if smart contracts were error free? Error handling
-in Clarity follows a very straightforward paradigm. We have already seen that
-returning an `err` from a [public function](ch05-01-public-functions.md)
-triggers a revert. That is pretty significant, but understanding the _control
-flow_ of your smart contract is even more important.
+Errores, ¿no sería fantástico si los contratos inteligentes no tuvieran errores? El manejo de errores
+en Clarity sigue un paradigma muy sencillo. Ya hemos visto que
+devolver un `err` desde una [función pública](ch05-01-public-functions.md)
+activa una reversión. Eso es bastante significativo, pero comprender el _flujo de
+control_ de su contrato inteligente es aún más importante.
 
-What is control flow? Put simply, it is the order in which expressions are
-evaluated. The functions introduced up until this point allow following a simple
-left-to-right rule. `begin` perfectly illustrates this:
+¿Qué es el flujo de control? En pocas palabras, es el orden en el que se
+evalúan las expresiones. Las funciones presentadas hasta este punto permiten seguir una regla simple de
+izquierda a derecha. `begin` lo ilustra perfectamente:
 
 ```Clarity
 (begin
-	(print "First")
-	(print "Second")
-	(print "Third")
+(print "First")
+(print "Second")
+(print "Third")
 )
 ```
 
-The first print expression is evaluated first, the second after that, and so on.
-But there are a few functions that actually influence the control flow. These
-are aptly named _control flow functions_. If understanding
-[responses](ch05-01-public-functions.md) is key to becoming a successful smart
-contract developer, then understanding control functions is key to becoming a
-great smart contract developer. The names of the control flow functions are:
-`asserts!`, `try!`, `unwrap!`, `unwrap-err!`, `unwrap-panic`, and
+La primera expresión de impresión se evalúa primero, la segunda después, y así sucesivamente.
+Pero hay algunas funciones que realmente influyen en el flujo de control. Estas
+se denominan acertadamente _funciones de flujo de control_. Si comprender
+[respuestas](ch05-01-public-functions.md) es clave para convertirse en un desarrollador
+exitoso de contratos inteligentes, entonces comprender las funciones de control es clave para convertirse en un gran desarrollador de contratos inteligentes. Los nombres de las funciones de flujo de control son:
+`asserts!`, `try!`, `unwrap!`, `unwrap-err!`, `unwrap-panic` y
 `unwrap-err-panic`.
 
-Up until now, we used `if` expressions to either return an `ok` or an `err`
-response. Recall the return portion of the `count-even` function in the chapter
-on [public function](ch05-01-public-functions.md):
+Hasta ahora, usábamos expresiones `if` para devolver una respuesta `ok` o `err`. Recuerde la parte de retorno de la función `count-even` en el capítulo
+sobre [función pública](ch05-01-public-functions.md):
 
 ```Clarity,{"nonplayable":true}
 (if (is-eq (mod number u2) u0)
-	(ok "the number is even")
-	(err "the number is uneven")
+(ok "the number is even")
+(err "the number is uneven")
 )
 ```
 
-One can argue that the structure is still decently legible, but imagine needing
-multiple conditionals that all return a different error code on failure. You
-will quickly end up with constructs that no sane developer can easily
-understand! Control flow functions are absolutely necessary to produce legible
-code once your contracts become more complex. They allow you to create
-short-circuits that immediately return a value from a function, ending execution
-early and thus skipping over any expressions that might have come after.
+Se puede argumentar que la estructura todavía es bastante legible, pero imagine que necesita
+varios condicionales que devuelvan un código de error diferente en caso de falla. ¡Rápidamente terminará con construcciones que ningún desarrollador sensato puede
+entender fácilmente! Las funciones de flujo de control son absolutamente necesarias para producir código legible una vez que sus contratos se vuelven más complejos. Le permiten crear
+cortocircuitos que devuelven inmediatamente un valor de una función, terminando la ejecución
+antes de tiempo y salteando así cualquier expresión que pudiera haber venido después.
 
-Another useful thing to understand with control flow functions is the 
-difference between functions that end in an exclamation point (such as `unwrap!`),
-and those that do not (such as `unwrap-panic`). Those that end in an exclamation 
-point allow for arbitrary early returns from a function. Those that do not 
-terminate execution altogether and throw a runtime error. 
+Otra cosa útil para entender sobre las funciones de flujo de control es la
+diferencia entre las funciones que terminan en un signo de exclamación (como `unwrap!`),
+y las que no lo hacen (como `unwrap-panic`). Las que terminan en un signo de exclamación
+permiten retornos anticipados arbitrarios de una función. Las que no lo hacen
+finalizan la ejecución por completo y arrojan un error de tiempo de ejecución.
