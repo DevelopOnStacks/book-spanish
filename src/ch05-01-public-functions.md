@@ -21,7 +21,7 @@ si el número es par, calculamos el resto de una división por dos y verificamos
 que sea igual a cero usando la función `is-eq` (_n mod 2 debe ser igual a 0_).
 
 ```Clarity
-(define-data-var even-values ​​uint u0)
+(define-data-var even-values uint u0)
 
 (define-public (count-even (number uint))
   (begin
