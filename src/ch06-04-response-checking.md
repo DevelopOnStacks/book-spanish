@@ -98,5 +98,5 @@ respuesta de tipo `(response bool uint)`, por lo tanto no necesitamos reiterar
 nuestro propio `(ok true)` al final de `begin`. Al mover la expresión de transferencia
 a la última línea, su respuesta ya no es intermediaria y será devuelta desde la función `deposit`, ya sea `ok` o `err`.
 
-El capítulo sobre [mejores prácticas](ch14-00-best-practices.md) le enseñará algunas
+El capítulo sobre [mejores prácticas](ch13-00-best-practices.md) le enseñará algunas
 técnicas sobre cómo detectar código que se puede simplificar de la misma manera.
